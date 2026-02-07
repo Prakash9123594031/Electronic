@@ -877,6 +877,42 @@
                 position: static;
             }
         }
+        /* --- FIX FOR MOBILE LOGO AND FOOTER CONTACT DETAILS --- */
+
+@media (max-width: 600px) {
+    /* Fix 1: Make Logo Text Visible */
+    .logo span {
+        display: inline; /* Overrides previous 'display: none' */
+        font-size: 1rem;
+    }
+
+    .logo {
+        font-size: 1.1rem; /* Adjust icon size */
+    }
+
+    /* Fix 2: Prevent Footer Contact Details from being cut off */
+    footer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr; /* Force single column to maximize width */
+        padding: 0; /* Remove internal padding */
+        gap: 2rem;
+    }
+
+    .contact-item {
+        flex-wrap: wrap; /* Ensure address/phone/email wraps correctly */
+        word-break: break-word; /* Prevent long strings from overflowing */
+    }
+
+    /* Helper: Ensure search bar shrinks correctly to avoid pushing logo */
+    .search-container {
+        min-width: 0; /* Allows flex item to shrink below content size */
+        margin-left: 0.5rem;
+    }
+}
     </style>
 </head>
 <body>
