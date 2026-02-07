@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroIndia | Premium Electronics Catalog</title>
+    <style>
+
+        /* --- 1. CSS Variables & Reset --- */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --accent-color: #f59e0b;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --header-height: 70px;
+            --footer-bg: #1f2937; /* Dark footer */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 2. Header (Sticky) --- */
+        header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bg-card);
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            width: 100%;
+            max-width: 1280px;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            color: var(--text-main);
+        }
+
+        .search-container {
+            flex-grow: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            background-color: var(--bg-body);
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .search-input:focus {
+            background-color: #fff;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .action-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .action-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Badge for cart */
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        /* --- 3. Main Layout (Grid) --- */
+        .container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 240px 1fr; /* Sidebar Fixed Left */
+            gap: 2rem;
+            flex-grow: 1; /* Pushes footer down */
+        }
+
+        /* --- 4. Sidebar (Categories) --- */
+        .sidebar {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+            position: sticky;
+            top: calc(var(--header-height) + 2rem);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .category-btn {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: none;
+            border: none;
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-btn:hover {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .category-count {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        /* --- 5. Main Content Area --- */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .results-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .sort-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sort-select {
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231f2937%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem top 50%;
+            background-size: 0.65rem auto;
+        }
+
+        /* --- 6. Product Grid --- */
+        .product-grid {
+            display: grid;
+            /* Default responsive behavior */
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 1.5rem;
+        }
+
+        /* --- 7. Product Card Design --- */
+        .product-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-color);
+        }
+
+        .card-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #f9fafb;
+            position: relative;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .price-tag {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .add-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .add-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .add-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- 8. No Results State --- */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: var(--radius);
+            border: 1px dashed var(--border-color);
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .no-results p {
+            color: var(--text-muted);
+        }
+
+        /* --- 9. Footer (New Section) --- */
+        footer {
+            background-color: var(--footer-bg);
+            color: #e5e7eb;
+            padding: 4rem 1.5rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links li a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links li a:hover {
+            color: white;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #9ca3af;
+        }
+
+        .contact-icon {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* --- 10. Toast Notification --- */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 3000; /* Above Modal */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background-color: #1f2937;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out forwards;
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        .toast.hiding {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
+
+        .toast-icon {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateY(10px); }
+        }
+
+        /* --- 11. Contact Modal (New) --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* --- 12. Responsive Media Queries --- */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: 1rem;
+            }
+
+            .category-list {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .category-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .category-btn {
+                width: auto;
+                white-space: nowrap;
+                border: 1px solid var(--border-color);
+            }
+
+            .category-btn.active {
+                border-color: var(--primary-color);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-content {
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo span {
+                display: none;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sort-wrapper {
+                width: 100%;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+            
+            .header-actions span {
+                display: none; /* Hide text label if exists */
+            }
+        }
+
+        /* =========================================
+           NEW CSS (Added for Cart Functionality)
+           ========================================= */
+
+        /* 1. Force 3 Columns on Desktop for Product Grid */
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 2. Cart Page/View Overlay */
+        .cart-view-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-body);
+            z-index: 2500; /* Above Contact Modal */
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .cart-view-overlay.active {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            background: var(--bg-card);
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .btn-close-cart {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .btn-close-cart:hover {
+            background: #f3f4f6;
+            border-color: var(--text-muted);
+        }
+
+        .cart-content-wrapper {
+            max-width: 1100px;
+            margin: 2rem auto;
+            width: 100%;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Cart Items List */
+        .cart-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cart-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .qty-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .qty-value {
+            padding: 0 0.5rem;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .cart-item-total {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Cart Summary (Right Side) */
+        .cart-summary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .summary-row.total {
+            border-top: 2px solid var(--border-color);
+            padding-top: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-checkout:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            padding: 4rem 1rem;
+            grid-column: 1 / -1;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Cart View */
+        @media (max-width: 768px) {
+            .cart-content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .cart-summary-card {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">
+                <span style="font-size: 1.8rem;">⚡</span>
+                <span>ElectroIndia</span>
+            </a>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for mobiles, laptops, TVs...">
+            </div>
+            <div class="header-actions">
+                <div class="action-icon" id="contactBtn" title="Contact Us">✉️</div>
+                <!-- Updated ID for JS reference -->
+                <div class="action-icon" id="cartIconBtn" title="View Cart">
+                    🛒
+                    <span class="badge" id="cartBadge">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Sidebar: Categories -->
+        <aside class="sidebar">
+            <h3 class="sidebar-title">Categories</h3>
+            <ul class="category-list" id="categoryList">
+                <!-- Javascript will inject buttons here -->
+            </ul>
+        </aside>
+
+        <!-- Main Content: Products -->
+        <main>
+            <!-- Controls: Sort & Count -->
+            <div class="controls-bar">
+                <h2 class="results-title" id="resultsTitle">All Products</h2>
+                <div class="sort-wrapper">
+                    <label for="sortSelect" style="font-size: 0.9rem; color: var(--text-muted);">Sort by:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="default">Recommended</option>
+                        <option value="lowToHigh">Price: Low to High</option>
+                        <option value="highToLow">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="productGrid" class="product-grid">
+                <!-- Javascript will inject product cards here -->
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <!-- Brand Info -->
+            <div class="footer-col">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span>⚡</span> ElectroIndia
+                </h4>
+                <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 1rem;">
+                    Your trusted destination for premium electronics across India. We provide authentic products with comprehensive warranty.
+                </p>
+            </div>
+
+            <!-- Contact Details -->
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>123 Tech Park, Electronic City,<br>Hosur Road, Bangalore,<br>Karnataka 560100, India</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span>+91 98765 43210</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <span>support@electroindia.com</span>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Delivery Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2023 ElectroIndia. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Get in Touch</h3>
+                <button id="closeModal" class="modal-close">&times;</button>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="message">Message</label>
+                    <textarea id="message" rows="4" class="form-textarea" placeholder="How can we help you?" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- =========================================
+         NEW HTML (Cart View)
+         ========================================= -->
+    <div id="cartView" class="cart-view-overlay">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="btn-close-cart" id="closeCartBtn">Continue Shopping</button>
+        </div>
+        
+        <div class="cart-content-wrapper">
+            <!-- Left Column: Items -->
+            <div class="cart-items-list" id="cartItemsList">
+                <!-- Items injected via JS -->
+            </div>
+
+            <!-- Right Column: Summary -->
+            <aside>
+                <div class="cart-summary-card">
+                    <h3 style="margin-bottom: 1rem;">Order Summary</h3>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal">₹0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax (18% GST)</span>
+                        <span id="cartTax">₹0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="cartTotal">₹0</span>
+                    </div>
+
+                    <button class="btn-checkout" onclick="showToast('Proceeding to Checkout...')">Checkout</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. Data Source (Indian Electronics Market) ---
+        const products = [
+            {
+                id: 1,
+                name: "OnePlus Nord CE 3 5G",
+                category: "Mobiles",
+                price: 19999,
+                description: "Snapdragon 695, 8GB RAM, 128GB Storage, 50MP Main Camera, 5000mAh Battery.",
+                image: "product_image/OnePlus.jfif"
+            },
+            {
+                id: 2,
+                name: "Samsung Galaxy S23 FE",
+                category: "Mobiles",
+                price: 49999,
+                description: "Exynos 2200, 8GB RAM, 256GB Storage, 50MP Camera, Dynamic AMOLED 2X.",
+                image: "product_image/Samsung Galaxy S23 FE.jfif"
+            },
+            {
+                id: 3,
+                name: "Apple iPhone 14",
+                category: "Mobiles",
+                price: 65999,
+                description: "A15 Bionic Chip, 128GB, Midnight, Dual 12MP Camera System, Ceramic Shield.",
+                image: "product_image/Apple iPhone 14.jfif"
+            },
+            {
+                id: 4,
+                name: "HP Pavilion 15 Laptop",
+                category: "Laptops",
+                price: 58990,
+                description: "Intel i5 12th Gen, 16GB DDR4, 512GB SSD, 15.6 inch FHD, Windows 11.",
+                image: "product_image/HP Pavilion 15 Laptop.jfif"
+            },
+            {
+                id: 5,
+                name: "MacBook Air M2",
+                category: "Laptops",
+                price: 99900,
+                description: "Apple M2 Chip, 8GB Unified Memory, 256GB SSD, 13.6 inch Liquid Retina.",
+                image: "product_image/MacBook Air M2.jfif"
+            },
+            {
+                id: 6,
+                name: "ASUS TUF Gaming F15",
+                category: "Laptops",
+                price: 72000,
+                description: "Intel Core i5-11400H, 4GB NVIDIA GeForce GTX 1650, 144Hz Display.",
+                image: "product_image/ASUS TUF Gaming F15.jfif"
+            },
+            {
+                id: 7,
+                name: "Sony Bravia 55 inch 4K",
+                category: "TVs",
+                price: 62990,
+                description: "4K Ultra HD Smart LED TV, Google TV, HDR10, 20W Speakers, X1 4K Processor.",
+                image: "product_image/Sony Bravia 55 inch 4K.jfif"
+            },
+            {
+                id: 8,
+                name: "LG C2 42 inch OLED",
+                category: "TVs",
+                price: 130000,
+                description: "OLED evo, Self-Lit Pixels, G-Sync Compatible, Dolby Vision IQ & Atmos.",
+                image: "product_image/LG C2 42 inch OLED.jfif"
+            },
+            {
+                id: 9,
+                name: "boAt Rockerz 450",
+                category: "Accessories",
+                price: 1499,
+                description: "Bluetooth Headset, Over Ear, 15 Hours Playback, Active Noise Cancellation.",
+                image: "product_image/boAt Rockerz 450.jfif"
+            },
+            {
+                id: 10,
+                name: "JBL Flip 6",
+                category: "Accessories",
+                price: 9999,
+                description: "Portable Bluetooth Speaker, Waterproof, 12 Hours Playtime, Bass Radiator.",
+                image: "product_image/JBL Flip 6.jfif"
+            },
+            {
+                id: 11,
+                name: "Samsung Galaxy M34",
+                category: "Mobiles",
+                price: 16999,
+                description: "6GB RAM, 128GB ROM, 6000mAh Battery, 120Hz sAMOLED Display.",
+                image: "product_image/Samsung Galaxy M34.jfif"
+            },
+            {
+                id: 12,
+                name: "Dell XPS 13 Plus",
+                category: "Laptops",
+                price: 115000,
+                description: "12th Gen Intel Core i7, 16GB LPDDR5, 512GB SSD, 3.5K OLED Touch.",
+                image: "product_image/Dell XPS 13 Plus.jfif"
+            },
+
+            // --- 13 NEW PRODUCTS (IDs 13-25) ---
+            {
+                id: 13,
+                name: "Vivo V29 5G",
+                category: "Mobiles",
+                price: 26999,
+                description: "Snapdragon 778G, 8GB RAM, 128GB Storage, Aura Light Portrait, 4500mAh Battery.",
+                image: "product_image/Vivo V29 5G.jfif"
+            },
+            {
+                id: 14,
+                name: "Lenovo Legion 5",
+                category: "Laptops",
+                price: 85000,
+                description: "Ryzen 7 5800H, RTX 3060 6GB, 16GB RAM, 512GB SSD, 144Hz Display.",
+                image: "product_image/Lenovo Legion 5.jfif"
+            },
+            {
+                id: 15,
+                name: "Samsung Crystal 4K",
+                category: "TVs",
+                price: 34999,
+                description: "43 inch Crystal 4K UHD Smart TV, PurColor, Q-Symphony, HDR.",
+                image: "product_image/Samsung Crystal 4K.jfif"
+            },
+            {
+                id: 16,
+                name: "Canon EOS 3000D",
+                category: "Accessories",
+                price: 29999,
+                description: "18MP DSLR Camera, 18-55mm Lens, Wi-Fi, HD Video Recording.",
+                image: "product_image/Canon EOS 3000D.jfif"
+            },
+            {
+                id: 17,
+                name: "Redmi Note 13",
+                category: "Mobiles",
+                price: 17499,
+                description: "Snapdragon 685, 8GB RAM, 128GB, 108MP Camera, AMOLED 120Hz.",
+                image: "product_image/Redmi Note 13.jfif"
+            },
+            {
+                id: 18,
+                name: "Seagate HDD 1TB",
+                category: "Accessories",
+                price: 4500,
+                description: "External Hard Drive, USB 3.0, 1TB Storage, Portable Design.",
+                image: "product_image/Seagate HDD 1TB.jfif"
+            },
+            {
+                id: 19,
+                name: "Mi TV 5X",
+                category: "TVs",
+                price: 39999,
+                description: "50 inch 4K Ultra HD Smart TV, Vivid Picture Engine, Dolby Vision.",
+                image: "product_image/Mi TV 5X.jfif"
+            },
+            {
+                id: 20,
+                name: "Acer Swift Go",
+                category: "Laptops",
+                price: 59990,
+                description: "Intel Evo i5 13th Gen, 16GB LPDDR5, 512GB SSD, 14 inch OLED.",
+                image: "product_image/Acer Swift Go.jfif"
+            },
+            {
+                id: 21,
+                name: "Logitech MX Master 3S",
+                category: "Accessories",
+                price: 9495,
+                description: "Performance Wireless Mouse, 8K DPI Tracking, Quiet Clicks.",
+                image: "product_image/Logitech MX Master 3S.jfif"
+            },
+            {
+                id: 22,
+                name: "Google Pixel 7a",
+                category: "Mobiles",
+                price: 39999,
+                description: "Google Tensor G2, 8GB RAM, 128GB, 64MP Camera, 90Hz Display.",
+                image: "product_image/Google Pixel 7a.jfif"
+            },
+            {
+                id: 23,
+                name: "Amazon Kindle Paperwhite",
+                category: "Accessories",
+                price: 12999,
+                description: "6.8 inch Glare-Free Display, Waterproof, Adjustable Warm Light.",
+                image: "product_image/Amazon Kindle Paperwhite.jfif"`
+            },
+            {
+                id: 24,
+                name: "Sony Bravia HD Ready",
+                category: "TVs",
+                price: 27990,
+                description: "43 inch HD Ready Smart LED TV, X-Reality PRO, Open Browser, HDR10.",
+                image: "product_image/Sony Bravia HD Ready.jfif"
+            },
+            {
+                id: 25,
+                name: "HP Spectre x360",
+                category: "Laptops",
+                price: 129999,
+                description: "Intel Core i7 12th Gen, 16GB RAM, 1TB SSD, 2-in-1 Convertible, OLED.",
+                image: "product_image/HP Spectre x360.jfif"
+            }
+        ];
+
+        // --- 2. State Management ---
+        let state = {
+            category: 'All',
+            search: '',
+            sortBy: 'default' // default, lowToHigh, highToLow
+        };
+
+        // --- 3. DOM Elements ---
+        const productGrid = document.getElementById('productGrid');
+        const categoryList = document.getElementById('categoryList');
+        const searchInput = document.getElementById('searchInput');
+        const sortSelect = document.getElementById('sortSelect');
+        const resultsTitle = document.getElementById('resultsTitle');
+        const toastContainer = document.getElementById('toastContainer');
+        
+        // Contact Modal Elements
+        const contactBtn = document.getElementById('contactBtn');
+        const contactModal = document.getElementById('contactModal');
+        const closeModal = document.getElementById('closeModal');
+        const contactForm = document.getElementById('contactForm');
+
+        // --- 4. Helper Functions ---
+
+        // Format Price to INR
+        const formatPrice = (price) => {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(price);
+        };
+
+        // Extract unique categories
+        const getCategories = () => {
+            const categories = new Set(products.map(p => p.category));
+            return ['All', ...Array.from(categories)];
+        };
+
+        // Show Toast Notification
+        const showToast = (message) => {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<span class="toast-icon">✓</span> ${message}`;
+            toastContainer.appendChild(toast);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hiding');
+                toast.addEventListener('animationend', () => toast.remove());
+            }, 3000);
+        };
+
+        // --- 5. Core Logic: Filter & Sort ---
+        const getProcessedProducts = () => {
+            // 1. Filter by Category
+            let result = state.category === 'All' 
+                ? [...products] 
+                : products.filter(p => p.category === state.category);
+
+            // 2. Filter by Search
+            if (state.search) {
+                const term = state.search.toLowerCase();
+                result = result.filter(p => 
+                    p.name.toLowerCase().includes(term) || 
+                    p.description.toLowerCase().includes(term)
+                );
+            }
+
+            // 3. Sort
+            if (state.sortBy === 'lowToHigh') {
+                result.sort((a, b) => a.price - b.price);
+            } else if (state.sortBy === 'highToLow') {
+                result.sort((a, b) => b.price - a.price);
+            } else {
+                // Default: Maintain original order (by ID)
+                result.sort((a, b) => a.id - b.id);
+            }
+
+            return result;
+        };
+
+        // --- 6. Rendering Functions ---
+
+        // Render Category Sidebar
+        const renderCategories = () => {
+            const categories = getCategories();
+            categoryList.innerHTML = categories.map(cat => {
+                // Calculate count for this category
+                const count = cat === 'All' 
+                    ? products.length 
+                    : products.filter(p => p.category === cat).length;
+                
+                const isActive = state.category === cat ? 'active' : '';
+
+                return `
+                    <li>
+                        <button class="category-btn ${isActive}" onclick="setCategory('${cat}')">
+                            <span>${cat}</span>
+                            <span class="category-count">${count}</span>
+                        </button>
+                    </li>
+                `;
+            }).join('');
+        };
+
+        // Render Product Grid
+        const renderProducts = () => {
+            const displayProducts = getProcessedProducts();
+            
+            // Update Title
+            resultsTitle.textContent = state.category === 'All' && !state.search 
+                ? 'All Products' 
+                : `Showing ${displayProducts.length} result${displayProducts.length !== 1 ? 's' : ''}`;
+
+            // Handle Empty State
+            if (displayProducts.length === 0) {
+                productGrid.innerHTML = `
+                    <div class="no-results">
+                        <h3>No products found</h3>
+                        <p>Try adjusting your search or category filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Generate HTML
+            productGrid.innerHTML = displayProducts.map(product => `
+                <div class="product-card">
+                    <div class="card-image-container">
+                        <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-category">${product.category}</span>
+                        <h3 class="card-title">${product.name}</h3>
+                        <p class="card-desc">${product.description}</p>
+                        <div class="card-footer">
+                            <span class="price-tag">${formatPrice(product.price)}</span>
+                            <button class="add-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        // --- 7. Interaction Handlers ---
+
+        // Global function for category selection
+        window.setCategory = (category) => {
+            state.category = category;
+            renderCategories(); // Re-render to update active state
+            renderProducts();
+        };
+
+        // Placeholder for addToCart (Overridden in new script block)
+        window.addToCart = (id) => {
+            // This function is redefined below to handle LocalStorage
+        };
+
+        // Search Input Listener
+        searchInput.addEventListener('input', (e) => {
+            state.search = e.target.value.trim();
+            renderProducts();
+        });
+
+        // Sort Select Listener
+        sortSelect.addEventListener('change', (e) => {
+            state.sortBy = e.target.value;
+            renderProducts();
+        });
+
+        // --- 8. Contact Modal Logic ---
+        
+        const openModal = () => {
+            contactModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        };
+
+        const closeModalFunc = () => {
+            contactModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+
+        contactBtn.addEventListener('click', openModal);
+        closeModal.addEventListener('click', closeModalFunc);
+
+        // Close modal when clicking outside the card
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) {
+                closeModalFunc();
+            }
+        });
+
+        // Handle Contact Form Submit
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulate form submission
+            const name = document.getElementById('name').value;
+            closeModalFunc();
+            showToast(`Thanks ${name}, we received your message!`);
+            contactForm.reset();
+        });
+
+        // --- 9. Initialization ---
+        const init = () => {
+            renderCategories();
+            renderProducts();
+        };
+
+        // Run Init
+        init();
+
+    </script>
+
+    <!-- =========================================
+         NEW JS (Cart Functionality)
+         ========================================= -->
+    <script>
+        /* 
+           Cart Logic with LocalStorage 
+           - Overrides the placeholder addToCart function
+           - Handles Cart View Toggling
+           - Persists data
+        */
+
+        // --- Cart DOM Elements ---
+        const cartIconBtn = document.getElementById('cartIconBtn');
+        const cartView = document.getElementById('cartView');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+        const cartItemsList = document.getElementById('cartItemsList');
+        const cartBadge = document.getElementById('cartBadge');
+        
+        const cartSubtotalEl = document.getElementById('cartSubtotal');
+        const cartTaxEl = document.getElementById('cartTax');
+        const cartTotalEl = document.getElementById('cartTotal');
+
+        // --- Cart State ---
+        let cart = JSON.parse(localStorage.getItem('electroIndiaCart')) || [];
+
+        // --- Helper: Save to LocalStorage ---
+        const saveCart = () => {
+            localStorage.setItem('electroIndiaCart', JSON.stringify(cart));
+            updateCartBadge();
+        };
+
+        // --- Helper: Update Badge Count ---
+        const updateCartBadge = () => {
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartBadge.textContent = totalCount;
+            
+            // Visual pop animation for badge
+            cartBadge.style.transform = 'scale(1.2)';
+            setTimeout(() => cartBadge.style.transform = 'scale(1)', 200);
+        };
+
+        // --- 1. Add to Cart (Overrides previous definition) ---
+        window.addToCart = (productId) => {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            saveCart();
+            showToast(`${product.name} added to cart!`);
+        };
+
+        // --- 2. Render Cart View ---
+        const renderCartView = () => {
+            cartItemsList.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = `
+                    <div class="empty-cart-msg">
+                        <h3>Your cart is empty</h3>
+                        <p>Go back and add some cool gadgets!</p>
+                    </div>
+                `;
+                updateSummary(0);
+                return;
+            }
+
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+
+                const cartItemEl = document.createElement('div');
+                cartItemEl.className = 'cart-item';
+                cartItemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">${formatPrice(item.price)}</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="updateQty(${item.id}, -1)">−</button>
+                            <span class="qty-value">${item.qty}</span>
+                            <button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
+                        </div>
+                        <div class="cart-item-total">${formatPrice(itemTotal)}</div>
+                        <button class="btn-remove" onclick="removeItem(${item.id})">Remove</button>
+                    </div>
+                `;
+                cartItemsList.appendChild(cartItemEl);
+            });
+
+            updateSummary(subtotal);
+        };
+
+        // --- 3. Update Summary (Subtotal, Tax, Total) ---
+        const updateSummary = (subtotal) => {
+            const tax = subtotal * 0.18; // 18% GST
+            const total = subtotal + tax;
+
+            cartSubtotalEl.textContent = formatPrice(subtotal);
+            cartTaxEl.textContent = formatPrice(tax);
+            cartTotalEl.textContent = formatPrice(total);
+        };
+
+        // --- 4. Update Quantity ---
+        window.updateQty = (id, change) => {
+            const itemIndex = cart.findIndex(item => item.id === id);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += change;
+                
+                // If qty drops to 0, remove item
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+                
+                saveCart();
+                renderCartView(); // Re-render to show changes
+            }
+        };
+
+        // --- 5. Remove Item ---
+        window.removeItem = (id) => {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            renderCartView();
+        };
+
+        // --- 6. Toggle Cart View ---
+        const toggleCartView = (show) => {
+            if (show) {
+                renderCartView(); // Refresh data before showing
+                cartView.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Stop background scrolling
+            } else {
+                cartView.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        };
+
+        // --- Event Listeners for Cart UI ---
+        cartIconBtn.addEventListener('click', () => toggleCartView(true));
+        closeCartBtn.addEventListener('click', () => toggleCartView(false));
+
+        // Initialize Badge on Load
+        updateCartBadge();
+
+    </script>
+</body>
+</html>
