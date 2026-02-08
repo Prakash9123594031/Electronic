@@ -21,7 +21,7 @@
             --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --radius: 8px;
             --header-height: 70px;
-            --footer-bg: #1f2937;
+            --footer-bg: #1f2937; /* Dark footer */
         }
 
         * {
@@ -78,7 +78,6 @@
 
         .logo span {
             color: var(--text-main);
-            display: inline;
         }
 
         .search-container {
@@ -131,6 +130,7 @@
             transform: scale(1.1);
         }
 
+        /* Badge for cart */
         .badge {
             position: absolute;
             top: -5px;
@@ -149,9 +149,9 @@
             margin: 2rem auto;
             padding: 0 1.5rem;
             display: grid;
-            grid-template-columns: 240px 1fr;
+            grid-template-columns: 240px 1fr; /* Sidebar Fixed Left */
             gap: 2rem;
-            flex-grow: 1;
+            flex-grow: 1; /* Pushes footer down */
         }
 
         /* --- 4. Sidebar (Categories) --- */
@@ -255,6 +255,7 @@
         /* --- 6. Product Grid --- */
         .product-grid {
             display: grid;
+            /* Default responsive behavior */
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
             gap: 1.5rem;
         }
@@ -288,7 +289,7 @@
         .product-image {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures image covers area without distortion */
+            object-fit: cover; /* Prevents distortion */
             transition: transform 0.5s ease;
         }
 
@@ -376,10 +377,17 @@
             border: 1px dashed var(--border-color);
         }
         
-        .no-results h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-main); }
-        .no-results p { color: var(--text-muted); }
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
 
-        /* --- 9. Footer --- */
+        .no-results p {
+            color: var(--text-muted);
+        }
+
+        /* --- 9. Footer (New Section) --- */
         footer {
             background-color: var(--footer-bg);
             color: #e5e7eb;
@@ -396,80 +404,413 @@
             margin-bottom: 3rem;
         }
 
-        .footer-col h4 { color: white; font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 700; }
-        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-        .footer-links li a { color: #9ca3af; text-decoration: none; transition: color 0.2s; }
-        .footer-links li a:hover { color: white; }
-        .contact-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; color: #9ca3af; }
-        .contact-icon { color: var(--primary-color); font-size: 1.1rem; margin-top: 3px; }
-        .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid #374151; text-align: center; color: #6b7280; font-size: 0.875rem; }
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links li a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links li a:hover {
+            color: white;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #9ca3af;
+        }
+
+        .contact-icon {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
 
         /* --- 10. Toast Notification --- */
-        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
-        .toast { background-color: #1f2937; color: white; padding: 1rem 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-hover); display: flex; align-items: center; gap: 0.75rem; min-width: 300px; animation: slideIn 0.3s ease-out forwards; opacity: 0; transform: translateX(100%); }
-        .toast.hiding { animation: fadeOut 0.3s ease-in forwards; }
-        .toast-icon { color: #10b981; font-size: 1.2rem; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateY(10px); } }
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 3000; /* Above Modal */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-        /* --- 11. Contact Modal --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-card { background: white; padding: 2rem; border-radius: var(--radius); width: 90%; max-width: 500px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); transform: scale(0.95); transition: transform 0.3s ease; position: relative; }
-        .modal-overlay.active .modal-card { transform: scale(1); }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
-        .form-group { margin-bottom: 1rem; }
-        .form-label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
-        .form-input, .form-textarea { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius); font-family: inherit; }
-        .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-        .btn-submit { width: 100%; background-color: var(--primary-color); color: white; padding: 0.75rem; border: none; border-radius: var(--radius); font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .btn-submit:hover { background-color: var(--primary-dark); }
+        .toast {
+            background-color: #1f2937;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out forwards;
+            opacity: 0;
+            transform: translateX(100%);
+        }
 
-        /* --- 12. Cart Functionality CSS --- */
-        @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+        .toast.hiding {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
 
-        .cart-view-overlay { position: fixed; inset: 0; background-color: var(--bg-body); z-index: 2500; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s ease-in-out; overflow-y: auto; }
-        .cart-view-overlay.active { transform: translateX(0); }
-        .cart-header { background: var(--bg-card); padding: 1rem 1.5rem; box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; }
-        .cart-header h2 { font-size: 1.5rem; color: var(--text-main); }
-        .btn-close-cart { background: transparent; border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer; font-weight: 600; color: var(--text-main); transition: all 0.2s; }
-        .btn-close-cart:hover { background: #f3f4f6; border-color: var(--text-muted); }
-        .cart-content-wrapper { max-width: 1100px; margin: 2rem auto; width: 100%; padding: 0 1.5rem; display: grid; grid-template-columns: 1fr 320px; gap: 2rem; flex-grow: 1; }
-        .cart-items-list { display: flex; flex-direction: column; gap: 1rem; }
-        .cart-item { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 1rem; display: flex; gap: 1rem; align-items: center; }
-        .cart-item-img { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; background-color: #f9fafb; }
-        .cart-item-details { flex-grow: 1; }
-        .cart-item-title { font-weight: 600; color: var(--text-main); margin-bottom: 0.25rem; }
-        .cart-item-price { color: var(--text-muted); font-size: 0.9rem; }
-        .cart-item-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-        .qty-controls { display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: 4px; }
-        .qty-btn { background: none; border: none; padding: 0.25rem 0.5rem; cursor: pointer; color: var(--text-main); }
-        .qty-btn:hover { background-color: #f3f4f6; }
-        .qty-value { padding: 0 0.5rem; font-weight: 600; min-width: 30px; text-align: center; }
-        .cart-item-total { font-weight: 700; color: var(--text-main); }
-        .btn-remove { background: none; border: none; color: #ef4444; font-size: 0.8rem; cursor: pointer; text-decoration: underline; }
-        .cart-summary-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 1.5rem; height: fit-content; position: sticky; top: 2rem; }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--text-muted); }
-        .summary-row.total { border-top: 2px solid var(--border-color); padding-top: 1rem; margin-bottom: 1.5rem; font-weight: 800; font-size: 1.25rem; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
-        .btn-checkout { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 1rem; border-radius: var(--radius); font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-        .btn-checkout:hover { background-color: var(--primary-dark); }
-        .empty-cart-msg { text-align: center; padding: 4rem 1rem; grid-column: 1 / -1; color: var(--text-muted); }
+        .toast-icon {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateY(10px); }
+        }
+
+        /* --- 11. Contact Modal (New) --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* --- 12. Cart Page/View Overlay --- */
+        .cart-view-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-body);
+            z-index: 2500; /* Above Contact Modal */
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .cart-view-overlay.active {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            background: var(--bg-card);
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .btn-close-cart {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .btn-close-cart:hover {
+            background: #f3f4f6;
+            border-color: var(--text-muted);
+        }
+
+        .cart-content-wrapper {
+            max-width: 1100px;
+            margin: 2rem auto;
+            width: 100%;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Cart Items List */
+        .cart-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cart-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .qty-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .qty-value {
+            padding: 0 0.5rem;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .cart-item-total {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Cart Summary (Right Side) */
+        .cart-summary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .summary-row.total {
+            border-top: 2px solid var(--border-color);
+            padding-top: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-checkout:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            padding: 4rem 1rem;
+            grid-column: 1 / -1;
+            color: var(--text-muted);
+        }
+
+        /* Force 3 Columns on Desktop for Product Grid */
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
 
         /* =========================================
-           13. COMPLETE MOBILE RESPONSIVE FIXES
+           13. RESPONSIVE MEDIA QUERIES (FIXED)
            ========================================= */
         
-        /* Tablet & Mobile (< 900px) */
+        /* Tablet Layout (< 900px) */
         @media (max-width: 900px) {
             .container {
                 grid-template-columns: 1fr;
-                padding: 0 1rem; /* Less horizontal padding */
             }
 
             .sidebar {
-                position: static; /* Remove sticky */
-                margin-bottom: 1.5rem;
+                position: static;
+                margin-bottom: 1rem;
                 padding: 1rem;
             }
 
@@ -477,12 +818,12 @@
                 flex-direction: row;
                 overflow-x: auto;
                 padding-bottom: 0.5rem;
-                -ms-overflow-style: none;  /* IE and Edge */
-                scrollbar-width: none;  /* Firefox */
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             
             .category-list::-webkit-scrollbar {
-                display: none; /* Chrome, Safari, Opera */
+                display: none;
             }
 
             .category-btn {
@@ -500,47 +841,80 @@
         /* Mobile Phones (< 600px) */
         @media (max-width: 600px) {
             
-            /* --- Header Adjustments --- */
+            /* --- Header Fix --- */
             .header-content {
                 gap: 0.5rem;
                 padding: 0 1rem;
             }
             
-            .logo { font-size: 1.2rem; }
-            .logo span { display: none; } /* Hide text logo, keep icon */
-
-            /* Search bar becomes smaller */
-            .search-container { max-width: 100%; margin: 0 0.5rem; }
-            .search-input { font-size: 0.85rem; padding: 0.6rem 1rem 0.6rem 2.2rem; }
-
-            /* --- Product Grid & Cards --- */
-            .controls-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            .sort-wrapper { width: 100%; }
-            .sort-select { width: 100%; }
-
-            /* Force 1 column on small mobile */
-            .product-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1rem;
+            .logo {
+                font-size: 1.2rem;
             }
 
-            /* Increase touch targets */
-            .add-btn {
-                width: 100%; /* Full width button */
-                padding: 0.8rem;
-                font-size: 1rem;
+            .logo span {
+                display: none; /* Hide text logo on mobile */
             }
 
-            /* --- Cart View Mobile Specifics --- */
-            .cart-content-wrapper {
-                grid-template-columns: 1fr; /* Stack Cart Summary below items */
+            .search-container {
+                max-width: 100%; /* Allow search to grow */
+                margin: 0 0.5rem;
             }
             
+            .search-input {
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem 0.6rem 2.2rem;
+            }
+
+            /* --- Layout & Grid Fix --- */
+            .container {
+                padding: 0 1rem; /* Reduce padding to maximize width */
+                gap: 1.5rem;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .sort-wrapper {
+                width: 100%;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+            
+            /* --- Product Grid Fix --- */
+            .product-grid {
+                /* Force single column for clean mobile layout */
+                grid-template-columns: 1fr !important; 
+                gap: 1.2rem;
+            }
+
+            /* --- Card Fixes --- */
+            .card-footer {
+                flex-direction: column;
+                align-items: stretch; /* Stretch children to full width */
+                gap: 0.75rem;
+            }
+
+            .add-btn {
+                width: 100%; /* Full width button for easy tapping */
+                padding: 0.8rem;
+                text-align: center;
+            }
+
+            /* --- Cart Overlay Fixes --- */
+            .cart-content-wrapper {
+                grid-template-columns: 1fr; /* Stack summary below items */
+            }
+
             .cart-summary-card {
                 position: static; /* Remove sticky on mobile */
             }
 
-            /* Stack cart items vertically for easier reading */
+            /* Stack cart items vertically for better readability */
             .cart-item {
                 flex-direction: column;
                 align-items: flex-start;
@@ -550,7 +924,6 @@
             .cart-item-img {
                 width: 100%;
                 height: 200px; /* Larger image on mobile */
-                margin-bottom: 0.5rem;
             }
 
             .cart-item-actions {
@@ -562,19 +935,17 @@
                 padding-top: 0.75rem;
                 border-top: 1px solid #f3f4f6;
             }
-
-            /* --- Toast Mobile --- */
+            
+            /* --- Toast Notification --- */
             .toast-container {
                 left: 1rem;
                 right: 1rem;
                 bottom: 1rem;
             }
+
             .toast {
-                left: 0;
-                right: 0;
-                bottom: 0;
-                min-width: auto;
-                /* Change animation for mobile */
+                min-width: auto; /* Remove fixed width */
+                /* Override animation for mobile bottom-up */
                 animation: slideUpMobile 0.3s ease-out forwards;
             }
 
@@ -600,6 +971,7 @@
             </div>
             <div class="header-actions">
                 <div class="action-icon" id="contactBtn" title="Contact Us">✉️</div>
+                <!-- Updated ID for JS reference -->
                 <div class="action-icon" id="cartIconBtn" title="View Cart">
                     🛒
                     <span class="badge" id="cartBadge">0</span>
@@ -718,7 +1090,9 @@
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="toast-container"></div>
 
-    <!-- Cart View -->
+    <!-- =========================================
+         NEW HTML (Cart View)
+         ========================================= -->
     <div id="cartView" class="cart-view-overlay">
         <div class="cart-header">
             <h2>Your Cart</h2>
@@ -726,9 +1100,12 @@
         </div>
         
         <div class="cart-content-wrapper">
+            <!-- Left Column: Items -->
             <div class="cart-items-list" id="cartItemsList">
                 <!-- Items injected via JS -->
             </div>
+
+            <!-- Right Column: Summary -->
             <aside>
                 <div class="cart-summary-card">
                     <h3 style="margin-bottom: 1rem;">Order Summary</h3>
@@ -754,7 +1131,7 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // --- 1. Data Source (Online Images Fixed) ---
+        // --- 1. Data Source (Indian Electronics Market) ---
         const products = [
             {
                 id: 1,
@@ -762,7 +1139,7 @@
                 category: "Mobiles",
                 price: 19999,
                 description: "Snapdragon 695, 8GB RAM, 128GB Storage, 50MP Main Camera, 5000mAh Battery.",
-                image: "https://images.unsplash.com/photo-1598327105666-5b89351aff35?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/OnePlus.jfif"
             },
             {
                 id: 2,
@@ -770,7 +1147,7 @@
                 category: "Mobiles",
                 price: 49999,
                 description: "Exynos 2200, 8GB RAM, 256GB Storage, 50MP Camera, Dynamic AMOLED 2X.",
-                image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Samsung Galaxy S23 FE.jfif"
             },
             {
                 id: 3,
@@ -778,7 +1155,7 @@
                 category: "Mobiles",
                 price: 65999,
                 description: "A15 Bionic Chip, 128GB, Midnight, Dual 12MP Camera System, Ceramic Shield.",
-                image: "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Apple iPhone 14.jfif"
             },
             {
                 id: 4,
@@ -786,7 +1163,7 @@
                 category: "Laptops",
                 price: 58990,
                 description: "Intel i5 12th Gen, 16GB DDR4, 512GB SSD, 15.6 inch FHD, Windows 11.",
-                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/HP Pavilion 15 Laptop.jfif"
             },
             {
                 id: 5,
@@ -794,7 +1171,7 @@
                 category: "Laptops",
                 price: 99900,
                 description: "Apple M2 Chip, 8GB Unified Memory, 256GB SSD, 13.6 inch Liquid Retina.",
-                image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/MacBook Air M2.jfif"
             },
             {
                 id: 6,
@@ -802,7 +1179,7 @@
                 category: "Laptops",
                 price: 72000,
                 description: "Intel Core i5-11400H, 4GB NVIDIA GeForce GTX 1650, 144Hz Display.",
-                image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/ASUS TUF Gaming F15.jfif"
             },
             {
                 id: 7,
@@ -810,7 +1187,7 @@
                 category: "TVs",
                 price: 62990,
                 description: "4K Ultra HD Smart LED TV, Google TV, HDR10, 20W Speakers, X1 4K Processor.",
-                image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Sony Bravia 55 inch 4K.jfif"
             },
             {
                 id: 8,
@@ -818,7 +1195,7 @@
                 category: "TVs",
                 price: 130000,
                 description: "OLED evo, Self-Lit Pixels, G-Sync Compatible, Dolby Vision IQ & Atmos.",
-                image: "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/LG C2 42 inch OLED.jfif"
             },
             {
                 id: 9,
@@ -826,7 +1203,7 @@
                 category: "Accessories",
                 price: 1499,
                 description: "Bluetooth Headset, Over Ear, 15 Hours Playback, Active Noise Cancellation.",
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/boAt Rockerz 450.jfif"
             },
             {
                 id: 10,
@@ -834,7 +1211,7 @@
                 category: "Accessories",
                 price: 9999,
                 description: "Portable Bluetooth Speaker, Waterproof, 12 Hours Playtime, Bass Radiator.",
-                image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/JBL Flip 6.jfif"
             },
             {
                 id: 11,
@@ -842,7 +1219,7 @@
                 category: "Mobiles",
                 price: 16999,
                 description: "6GB RAM, 128GB ROM, 6000mAh Battery, 120Hz sAMOLED Display.",
-                image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Samsung Galaxy M34.jfif"
             },
             {
                 id: 12,
@@ -850,15 +1227,17 @@
                 category: "Laptops",
                 price: 115000,
                 description: "12th Gen Intel Core i7, 16GB LPDDR5, 512GB SSD, 3.5K OLED Touch.",
-                image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Dell XPS 13 Plus.jfif"
             },
+
+            // --- 13 NEW PRODUCTS (IDs 13-25) ---
             {
                 id: 13,
                 name: "Vivo V29 5G",
                 category: "Mobiles",
                 price: 26999,
                 description: "Snapdragon 778G, 8GB RAM, 128GB Storage, Aura Light Portrait, 4500mAh Battery.",
-                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Vivo V29 5G.jfif"
             },
             {
                 id: 14,
@@ -866,7 +1245,7 @@
                 category: "Laptops",
                 price: 85000,
                 description: "Ryzen 7 5800H, RTX 3060 6GB, 16GB RAM, 512GB SSD, 144Hz Display.",
-                image: "https://images.unsplash.com/photo-1588872657578-a3d2afabad67?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Lenovo Legion 5.jfif"
             },
             {
                 id: 15,
@@ -874,7 +1253,7 @@
                 category: "TVs",
                 price: 34999,
                 description: "43 inch Crystal 4K UHD Smart TV, PurColor, Q-Symphony, HDR.",
-                image: "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Samsung Crystal 4K.jfif"
             },
             {
                 id: 16,
@@ -882,7 +1261,7 @@
                 category: "Accessories",
                 price: 29999,
                 description: "18MP DSLR Camera, 18-55mm Lens, Wi-Fi, HD Video Recording.",
-                image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Canon EOS 3000D.jfif"
             },
             {
                 id: 17,
@@ -890,7 +1269,7 @@
                 category: "Mobiles",
                 price: 17499,
                 description: "Snapdragon 685, 8GB RAM, 128GB, 108MP Camera, AMOLED 120Hz.",
-                image: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Redmi Note 13.jfif"
             },
             {
                 id: 18,
@@ -898,7 +1277,7 @@
                 category: "Accessories",
                 price: 4500,
                 description: "External Hard Drive, USB 3.0, 1TB Storage, Portable Design.",
-                image: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Seagate HDD 1TB.jfif"
             },
             {
                 id: 19,
@@ -906,7 +1285,7 @@
                 category: "TVs",
                 price: 39999,
                 description: "50 inch 4K Ultra HD Smart TV, Vivid Picture Engine, Dolby Vision.",
-                image: "https://images.unsplash.com/photo-1593784991095-a20506948436?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Mi TV 5X.jfif"
             },
             {
                 id: 20,
@@ -914,7 +1293,7 @@
                 category: "Laptops",
                 price: 59990,
                 description: "Intel Evo i5 13th Gen, 16GB LPDDR5, 512GB SSD, 14 inch OLED.",
-                image: "https://images.unsplash.com/photo-1624138784181-2999e8daa2ec?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Acer Swift Go.jfif"
             },
             {
                 id: 21,
@@ -922,7 +1301,7 @@
                 category: "Accessories",
                 price: 9495,
                 description: "Performance Wireless Mouse, 8K DPI Tracking, Quiet Clicks.",
-                image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Logitech MX Master 3S.jfif"
             },
             {
                 id: 22,
@@ -930,7 +1309,7 @@
                 category: "Mobiles",
                 price: 39999,
                 description: "Google Tensor G2, 8GB RAM, 128GB, 64MP Camera, 90Hz Display.",
-                image: "https://images.unsplash.com/photo-1598327105666-5b89351aff35?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Google Pixel 7a.jfif"
             },
             {
                 id: 23,
@@ -938,7 +1317,7 @@
                 category: "Accessories",
                 price: 12999,
                 description: "6.8 inch Glare-Free Display, Waterproof, Adjustable Warm Light.",
-                image: "https://images.unsplash.com/photo-1592496001020-d31bd830651f?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Amazon Kindle Paperwhite.jfif"
             },
             {
                 id: 24,
@@ -946,7 +1325,7 @@
                 category: "TVs",
                 price: 27990,
                 description: "43 inch HD Ready Smart LED TV, X-Reality PRO, Open Browser, HDR10.",
-                image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/Sony Bravia HD Ready.jfif"
             },
             {
                 id: 25,
@@ -954,7 +1333,7 @@
                 category: "Laptops",
                 price: 129999,
                 description: "Intel Core i7 12th Gen, 16GB RAM, 1TB SSD, 2-in-1 Convertible, OLED.",
-                image: "https://images.unsplash.com/photo-1544731612-de7f96afe55f?auto=format&fit=crop&w=500&q=60"
+                image: "product_image/HP Spectre x360.jfif"
             }
         ];
 
@@ -1177,7 +1556,7 @@
     <script>
         /* 
            Cart Logic with LocalStorage 
-           - Overrides the placeholder addToCart function
+           - Overrides placeholder addToCart function
            - Handles Cart View Toggling
            - Persists data
         */
