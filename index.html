@@ -289,7 +289,7 @@
         .product-image {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Prevents distortion */
+            object-fit: cover;
             transition: transform 0.5s ease;
         }
 
@@ -589,7 +589,84 @@
             background-color: var(--primary-dark);
         }
 
-        /* --- 12. Cart Page/View Overlay --- */
+        /* --- 12. Responsive Media Queries --- */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: 1rem;
+            }
+
+            .category-list {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .category-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .category-btn {
+                width: auto;
+                white-space: nowrap;
+                border: 1px solid var(--border-color);
+            }
+
+            .category-btn.active {
+                border-color: var(--primary-color);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-content {
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo span {
+                display: none;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sort-wrapper {
+                width: 100%;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+            
+            .header-actions span {
+                display: none; /* Hide text label if exists */
+            }
+        }
+
+        /* =========================================
+           NEW CSS (Added for Cart Functionality)
+           ========================================= */
+
+        /* 1. Force 3 Columns on Desktop for Product Grid */
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 2. Cart Page/View Overlay */
         .cart-view-overlay {
             position: fixed;
             inset: 0;
@@ -791,167 +868,13 @@
             color: var(--text-muted);
         }
 
-        /* Force 3 Columns on Desktop for Product Grid */
-        @media (min-width: 1024px) {
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* =========================================
-           13. RESPONSIVE MEDIA QUERIES (FIXED)
-           ========================================= */
-        
-        /* Tablet Layout (< 900px) */
-        @media (max-width: 900px) {
-            .container {
+        /* Responsive Cart View */
+        @media (max-width: 768px) {
+            .cart-content-wrapper {
                 grid-template-columns: 1fr;
             }
-
-            .sidebar {
-                position: static;
-                margin-bottom: 1rem;
-                padding: 1rem;
-            }
-
-            .category-list {
-                flex-direction: row;
-                overflow-x: auto;
-                padding-bottom: 0.5rem;
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-            
-            .category-list::-webkit-scrollbar {
-                display: none;
-            }
-
-            .category-btn {
-                width: auto;
-                white-space: nowrap;
-                border: 1px solid var(--border-color);
-                padding: 0.5rem 1rem;
-            }
-
-            .category-btn.active {
-                border-color: var(--primary-color);
-            }
-        }
-
-        /* Mobile Phones (< 600px) */
-        @media (max-width: 600px) {
-            
-            /* --- Header Fix --- */
-            .header-content {
-                gap: 0.5rem;
-                padding: 0 1rem;
-            }
-            
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            .logo span {
-                display: none; /* Hide text logo on mobile */
-            }
-
-            .search-container {
-                max-width: 100%; /* Allow search to grow */
-                margin: 0 0.5rem;
-            }
-            
-            .search-input {
-                font-size: 0.85rem;
-                padding: 0.6rem 1rem 0.6rem 2.2rem;
-            }
-
-            /* --- Layout & Grid Fix --- */
-            .container {
-                padding: 0 1rem; /* Reduce padding to maximize width */
-                gap: 1.5rem;
-            }
-
-            .controls-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .sort-wrapper {
-                width: 100%;
-            }
-
-            .sort-select {
-                width: 100%;
-            }
-            
-            /* --- Product Grid Fix --- */
-            .product-grid {
-                /* Force single column for clean mobile layout */
-                grid-template-columns: 1fr !important; 
-                gap: 1.2rem;
-            }
-
-            /* --- Card Fixes --- */
-            .card-footer {
-                flex-direction: column;
-                align-items: stretch; /* Stretch children to full width */
-                gap: 0.75rem;
-            }
-
-            .add-btn {
-                width: 100%; /* Full width button for easy tapping */
-                padding: 0.8rem;
-                text-align: center;
-            }
-
-            /* --- Cart Overlay Fixes --- */
-            .cart-content-wrapper {
-                grid-template-columns: 1fr; /* Stack summary below items */
-            }
-
             .cart-summary-card {
-                position: static; /* Remove sticky on mobile */
-            }
-
-            /* Stack cart items vertically for better readability */
-            .cart-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .cart-item-img {
-                width: 100%;
-                height: 200px; /* Larger image on mobile */
-            }
-
-            .cart-item-actions {
-                width: 100%;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: 0.5rem;
-                padding-top: 0.75rem;
-                border-top: 1px solid #f3f4f6;
-            }
-            
-            /* --- Toast Notification --- */
-            .toast-container {
-                left: 1rem;
-                right: 1rem;
-                bottom: 1rem;
-            }
-
-            .toast {
-                min-width: auto; /* Remove fixed width */
-                /* Override animation for mobile bottom-up */
-                animation: slideUpMobile 0.3s ease-out forwards;
-            }
-
-            @keyframes slideUpMobile {
-                from { transform: translateY(100%); opacity: 0; }
-                to { transform: translateY(0); opacity: 1; }
+                position: static;
             }
         }
     </style>
@@ -1556,7 +1479,7 @@
     <script>
         /* 
            Cart Logic with LocalStorage 
-           - Overrides placeholder addToCart function
+           - Overrides the placeholder addToCart function
            - Handles Cart View Toggling
            - Persists data
         */
