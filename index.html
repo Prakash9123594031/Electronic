@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated Viewport: Prevents zooming for stable mobile layout -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ElectroIndia | Premium Electronics Catalog</title>
     <style>
 
@@ -30,7 +31,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; /* Remove blue tap highlight */
         }
 
         body {
@@ -39,7 +40,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* --- 2. Header (Sticky & Responsive) --- */
@@ -580,7 +581,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             font-family: inherit;
-            font-size: 16px;
+            font-size: 16px; /* Prevents zoom on iOS */
         }
 
         .form-input:focus, .form-textarea:focus {
@@ -818,7 +819,6 @@
 
         /* =========================================
            ORIGINAL RESPONSIVE MEDIA QUERIES
-           (These are preserved as requested, but overridden below)
            ========================================= */
         @media (max-width: 1024px) {
             .product-grid {
@@ -884,6 +884,7 @@
                 font-size: 1.2rem;
             }
 
+            /* This hides the logo text in original code - will be overridden below */
             .logo span {
                 display: none;
             }
@@ -919,6 +920,7 @@
                 max-width: 200px;
             }
 
+            /* This forces 1 column in original code - will be overridden below */
             .product-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
@@ -981,73 +983,69 @@
         }
 
         /* =========================================
-           NEW ADJUSTMENTS: FORCE DESKTOP LAYOUT
+           NEW MOBILE IMPROVEMENTS
+           (Overrides existing mobile rules)
            ========================================= */
-        
-        /* 
-           This script and style block ensures that the layout remains 
-           identical to the desktop view (Sidebar Left, 3 Columns) on mobile 
-           by forcing the viewport width and overriding media queries.
-        */
-    </style>
-    
-    <!-- Script to Force Desktop Viewport Scaling -->
-    <script>
-        (function() {
-            function setDesktopViewport() {
-                var viewport = document.querySelector('meta[name="viewport"]');
-                if (window.innerWidth < 1024) {
-                    // Force browser to render as if width is 1280px
-                    // This prevents media queries from triggering and maintains grid structure
-                    var scale = window.innerWidth / 1280;
-                    viewport.setAttribute("content", "width=1280, initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no");
-                } else {
-                    // Revert to standard responsive behavior on larger screens
-                    viewport.setAttribute("content", "width=device-width, initial-scale=1.0");
-                }
+        @media (max-width: 600px) {
+            /* 1. Ensure Logo Text is Visible */
+            .logo span {
+                display: inline !important; 
+                font-size: 1rem; /* Slightly smaller to fit */
             }
-            
-            // Run on load and resize
-            window.addEventListener('load', setDesktopViewport);
-            window.addEventListener('resize', setDesktopViewport);
-        })();
-    </script>
-    
-    <!-- CSS Overrides to guarantee structure if viewport script fails or has quirks -->
-    <style>
-        /* These overrides ensure 3 columns and sidebar positioning even if scaling shifts */
-        body {
-            min-width: 1280px !important; /* Prevent collapsing */
-            overflow-x: hidden !important;
+
+            /* 2. Display 2 Products Per Row */
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.5rem; /* Tighter gap for small screens */
+            }
+
+            /* 3. Adjust Card Design for 2-Column Layout */
+            .card-body {
+                padding: 0.5rem 0.75rem 0.75rem;
+            }
+            .card-image-container {
+                height: 140px; /* Reduce image height for 2-col fit */
+            }
+            .card-title {
+                font-size: 0.85rem;
+                margin-bottom: 0.25rem;
+            }
+            .card-category {
+                font-size: 0.65rem;
+                margin-bottom: 0.25rem;
+            }
+            /* Hide description to save vertical space in 2-column grid */
+            .card-desc {
+                display: none;
+            }
+            .card-footer {
+                padding-top: 0.5rem;
+                margin-top: 0.5rem;
+                flex-direction: column; /* Stack price and button */
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+            .price-tag {
+                font-size: 0.95rem;
+            }
+            .add-btn {
+                width: 100%; /* Full width button */
+                padding: 0.4rem;
+                font-size: 0.8rem;
+                text-align: center;
+            }
+
+            /* 4. Categories Section Visibility & Styling */
+            .category-btn {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            /* Ensure there is space for the horizontal scroll if needed */
+            .sidebar {
+                margin-bottom: 0.75rem;
+            }
         }
-        
-        .container {
-            width: 1280px !important;
-            min-width: 1280px !important;
-            grid-template-columns: 240px 1fr !important; /* Force Sidebar Left */
-        }
-        
-        /* Force 3 Product Columns */
-        .product-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
-        }
-        
-        /* Force Vertical Sidebar List */
-        .category-list {
-            flex-direction: column !important;
-            overflow-x: visible !important;
-        }
-        
-        .category-btn {
-            width: 100% !important;
-            white-space: normal !important;
-            border: 1px solid transparent !important;
-        }
-        
-        .sidebar {
-            position: sticky !important;
-            top: calc(var(--header-height) + 2rem) !important;
-        }
+
     </style>
 </head>
 <body>
