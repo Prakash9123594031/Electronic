@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroIndia | Premium Electronics Catalog</title>
     <style>
 
@@ -30,7 +30,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent; /* Remove blue tap highlight on mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -39,7 +39,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
         /* --- 2. Header (Sticky & Responsive) --- */
@@ -128,14 +128,13 @@
             cursor: pointer;
             transition: transform 0.2s;
             position: relative;
-            touch-action: manipulation; /* Improves touch response */
+            touch-action: manipulation;
         }
 
         .action-icon:hover {
             transform: scale(1.1);
         }
 
-        /* Badge for cart */
         .badge {
             position: absolute;
             top: -5px;
@@ -169,7 +168,7 @@
             height: fit-content;
             position: sticky;
             top: calc(var(--header-height) + 2rem);
-            overflow: hidden; /* Contains scrolling list on mobile */
+            overflow: hidden;
         }
 
         .sidebar-title {
@@ -263,7 +262,6 @@
         /* --- 6. Product Grid --- */
         .product-grid {
             display: grid;
-            /* Responsive Auto-fill logic */
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
             gap: 1.5rem;
         }
@@ -278,7 +276,7 @@
             display: flex;
             flex-direction: column;
             border: 1px solid transparent;
-            height: 100%; /* Ensures equal height cards in a row */
+            height: 100%;
         }
 
         .product-card:hover {
@@ -471,7 +469,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            pointer-events: none; /* Allows clicking through empty space */
+            pointer-events: none;
         }
 
         .toast {
@@ -484,7 +482,7 @@
             align-items: center;
             gap: 0.75rem;
             min-width: 300px;
-            max-width: 90vw; /* Prevent overflow on small screens */
+            max-width: 90vw;
             animation: slideIn 0.3s ease-out forwards;
             opacity: 0;
             transform: translateX(100%);
@@ -523,7 +521,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
-            padding: 1rem; /* Prevent edge touching on mobile */
+            padding: 1rem;
         }
 
         .modal-overlay.active {
@@ -537,8 +535,8 @@
             border-radius: var(--radius);
             width: 100%;
             max-width: 500px;
-            max-height: 90vh; /* Ensure it fits on mobile screens */
-            overflow-y: auto; /* Scroll content if too tall */
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             transform: scale(0.95);
             transition: transform 0.3s ease;
@@ -562,7 +560,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-muted);
-            padding: 0.5rem; /* Larger touch target */
+            padding: 0.5rem;
         }
 
         .form-group {
@@ -582,7 +580,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             font-family: inherit;
-            font-size: 16px; /* Prevents zoom on iOS */
+            font-size: 16px;
         }
 
         .form-input:focus, .form-textarea:focus {
@@ -608,18 +606,13 @@
             background-color: var(--primary-dark);
         }
 
-        /* =========================================
-           CART STYLES
-           ========================================= */
-
-        /* Force 3 Columns on Desktop */
+        /* --- 12. Cart Styles --- */
         @media (min-width: 1024px) {
             .product-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* Cart View Overlay */
         .cart-view-overlay {
             position: fixed;
             inset: 0;
@@ -680,7 +673,6 @@
             flex-grow: 1;
         }
 
-        /* Cart Items List */
         .cart-items-list {
             display: flex;
             flex-direction: column;
@@ -738,7 +730,7 @@
         .qty-btn {
             background: none;
             border: none;
-            padding: 0.25rem 0.75rem; /* Increased padding for touch */
+            padding: 0.25rem 0.75rem;
             cursor: pointer;
             color: var(--text-main);
             font-size: 1.1rem;
@@ -768,10 +760,9 @@
             font-size: 0.8rem;
             cursor: pointer;
             text-decoration: underline;
-            padding: 5px 0; /* Larger touch target */
+            padding: 5px 0;
         }
 
-        /* Cart Summary (Right Side) */
         .cart-summary-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -826,22 +817,19 @@
         }
 
         /* =========================================
-           ENHANCED RESPONSIVE MEDIA QUERIES
+           ORIGINAL RESPONSIVE MEDIA QUERIES
+           (These are preserved as requested, but overridden below)
            ========================================= */
-
-        /* Tablet & Small Desktop (900px - 1024px) */
         @media (max-width: 1024px) {
             .product-grid {
-                /* Enforce 2 columns for consistency in this range */
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        /* Tablet (Up to 900px) - Sidebar becomes Horizontal */
         @media (max-width: 900px) {
             .container {
                 grid-template-columns: 1fr;
-                gap: 1.5rem; /* Reduced gap */
+                gap: 1.5rem;
             }
 
             .sidebar {
@@ -853,13 +841,13 @@
             .category-list {
                 flex-direction: row;
                 overflow-x: auto;
-                padding-bottom: 0.5rem; /* Space for scrollbar/shadow */
-                -ms-overflow-style: none;  /* IE and Edge */
-                scrollbar-width: none;  /* Firefox */
+                padding-bottom: 0.5rem;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             
             .category-list::-webkit-scrollbar {
-                display: none; /* Hide scrollbar for Chrome/Safari/Opera */
+                display: none;
             }
 
             .category-btn {
@@ -882,14 +870,12 @@
             }
         }
 
-        /* Mobile Landscape & Small Portrait (Up to 600px) */
         @media (max-width: 600px) {
             :root {
-                --header-height: 60px; /* Compact header on mobile */
-                --container-padding: 1rem; /* Less padding on edges */
+                --header-height: 60px;
+                --container-padding: 1rem;
             }
 
-            /* Header adjustments */
             .header-content {
                 gap: 0.5rem;
             }
@@ -899,11 +885,11 @@
             }
 
             .logo span {
-                display: none; /* Hide text logo on very small screens */
+                display: none;
             }
 
             .search-container {
-                max-width: none; /* Let search take available space */
+                max-width: none;
                 margin: 0 0.5rem;
             }
 
@@ -916,10 +902,9 @@
                 gap: 1rem;
             }
 
-            /* Controls bar */
             .controls-bar {
                 flex-direction: column;
-                align-items: stretch; /* Stretch children to full width */
+                align-items: stretch;
                 gap: 0.75rem;
             }
 
@@ -933,14 +918,12 @@
                 flex-grow: 1;
                 max-width: 200px;
             }
-            
-            /* Product Grid: 1 Column on Mobile */
+
             .product-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
 
-            /* Card adjustments */
             .card-body {
                 padding: 1rem;
             }
@@ -950,9 +933,8 @@
                 font-size: 0.9rem;
             }
             
-            /* Toast position */
             .toast-container {
-                left: 20px; /* Center toast horizontally on mobile */
+                left: 20px;
                 right: 20px;
                 bottom: 10px;
             }
@@ -963,7 +945,6 @@
             }
         }
 
-        /* Very Small Devices (Under 360px) */
         @media (max-width: 360px) {
             .header-actions {
                 gap: 0.8rem;
@@ -979,7 +960,7 @@
             }
 
             .cart-item {
-                flex-direction: column; /* Stack cart items vertically on tiny screens */
+                flex-direction: column;
                 align-items: flex-start;
             }
 
@@ -999,6 +980,74 @@
             }
         }
 
+        /* =========================================
+           NEW ADJUSTMENTS: FORCE DESKTOP LAYOUT
+           ========================================= */
+        
+        /* 
+           This script and style block ensures that the layout remains 
+           identical to the desktop view (Sidebar Left, 3 Columns) on mobile 
+           by forcing the viewport width and overriding media queries.
+        */
+    </style>
+    
+    <!-- Script to Force Desktop Viewport Scaling -->
+    <script>
+        (function() {
+            function setDesktopViewport() {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (window.innerWidth < 1024) {
+                    // Force browser to render as if width is 1280px
+                    // This prevents media queries from triggering and maintains grid structure
+                    var scale = window.innerWidth / 1280;
+                    viewport.setAttribute("content", "width=1280, initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no");
+                } else {
+                    // Revert to standard responsive behavior on larger screens
+                    viewport.setAttribute("content", "width=device-width, initial-scale=1.0");
+                }
+            }
+            
+            // Run on load and resize
+            window.addEventListener('load', setDesktopViewport);
+            window.addEventListener('resize', setDesktopViewport);
+        })();
+    </script>
+    
+    <!-- CSS Overrides to guarantee structure if viewport script fails or has quirks -->
+    <style>
+        /* These overrides ensure 3 columns and sidebar positioning even if scaling shifts */
+        body {
+            min-width: 1280px !important; /* Prevent collapsing */
+            overflow-x: hidden !important;
+        }
+        
+        .container {
+            width: 1280px !important;
+            min-width: 1280px !important;
+            grid-template-columns: 240px 1fr !important; /* Force Sidebar Left */
+        }
+        
+        /* Force 3 Product Columns */
+        .product-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+        }
+        
+        /* Force Vertical Sidebar List */
+        .category-list {
+            flex-direction: column !important;
+            overflow-x: visible !important;
+        }
+        
+        .category-btn {
+            width: 100% !important;
+            white-space: normal !important;
+            border: 1px solid transparent !important;
+        }
+        
+        .sidebar {
+            position: sticky !important;
+            top: calc(var(--header-height) + 2rem) !important;
+        }
     </style>
 </head>
 <body>
