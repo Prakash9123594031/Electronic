@@ -102,6 +102,9 @@ img{max-width:100%;display:block}
 .price-input:focus{outline:none;border-color:var(--blue)}
 .btn-apply{width:100%;padding:8px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-weight:700;font-size:0.82rem;margin-top:6px;transition:.2s}
 .btn-apply:hover{background:var(--blue-dark)}
+/* ===== CLEAR FILTERS ===== */
+.btn-clear-filters{width:100%;padding:7px;background:#fff;color:var(--red);border:1px solid var(--red);border-radius:var(--radius);font-weight:700;font-size:0.78rem;margin-top:8px;transition:.2s;cursor:pointer}
+.btn-clear-filters:hover{background:#fff0f0}
 .rating-filter{display:flex;flex-direction:column;gap:4px;margin-top:12px}
 .rating-opt{display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 0;font-size:0.83rem;color:var(--text-3)}
 .rating-opt input{accent-color:var(--blue)}
@@ -116,6 +119,12 @@ img{max-width:100%;display:block}
 .sort-label{font-size:0.82rem;color:var(--text-2)}
 .sort-select{padding:7px 28px 7px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.83rem;color:var(--text);appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23878787'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;cursor:pointer;background-color:#fff}
 .sort-select:focus{outline:none;border-color:var(--blue)}
+
+/* ===== ACTIVE FILTERS CHIPS ===== */
+.active-filters{display:flex;flex-wrap:wrap;gap:6px;padding:0 0 4px 0}
+.filter-chip{display:inline-flex;align-items:center;gap:4px;background:var(--blue-light);color:var(--blue);font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid var(--blue)}
+.filter-chip-remove{cursor:pointer;font-size:0.85rem;line-height:1;opacity:.7}
+.filter-chip-remove:hover{opacity:1}
 
 /* ===== PRODUCT GRID ===== */
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
@@ -178,6 +187,9 @@ img{max-width:100%;display:block}
 .form-label{display:block;font-size:0.83rem;font-weight:600;color:var(--text-3);margin-bottom:5px}
 .form-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:0.9rem;color:var(--text);transition:.2s}
 .form-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(40,116,240,.1)}
+.form-input.error{border-color:var(--red)}
+.form-error{font-size:0.78rem;color:var(--red);margin-top:4px;display:none}
+.form-error.show{display:block}
 .form-textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:0.9rem;color:var(--text);resize:vertical;min-height:80px;transition:.2s}
 .form-textarea:focus{outline:none;border-color:var(--blue)}
 .btn-primary{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-weight:700;font-size:0.95rem;transition:.2s}
@@ -187,6 +199,10 @@ img{max-width:100%;display:block}
 .auth-divider span{background:#fff;padding:0 10px;position:relative}
 .auth-switch{text-align:center;margin-top:14px;font-size:0.85rem;color:var(--text-2)}
 .auth-switch a{color:var(--blue);font-weight:700;cursor:pointer}
+/* Password strength */
+.password-strength{margin-top:6px;height:4px;border-radius:2px;background:var(--border);overflow:hidden}
+.password-strength-bar{height:100%;border-radius:2px;transition:.3s;width:0}
+.strength-text{font-size:0.72rem;margin-top:3px;font-weight:600}
 
 /* ===== PRODUCT DETAIL ===== */
 .detail-overlay{position:fixed;inset:0;background:#fff;z-index:3000;overflow-y:auto;opacity:0;pointer-events:none;transition:.25s;transform:translateX(100%)}
@@ -431,21 +447,234 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
 .payment-icons{display:flex;gap:8px;align-items:center}
 .payment-icon{background:#424242;padding:4px 10px;border-radius:4px;font-size:0.72rem;font-weight:700;color:#fff}
 
-/* ===== MOBILE RESPONSIVE ===== */
-@media(max-width:600px){
+/* Drawer sort / rating pill buttons */
+.drawer-sort-btn{padding:7px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;background:#fff;color:var(--text-3);transition:.15s}
+.drawer-sort-btn.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.drawer-sort-btn:active{transform:scale(.96)}
+
+/* ===================================================
+   FULLY RESPONSIVE — MOBILE + TABLET + PC
+   Breakpoints:
+     xs  < 480px   (small phones)
+     sm  < 640px   (phones)
+     md  < 768px   (large phones / small tablets)
+     lg  < 1024px  (tablets / small laptops)
+     xl  ≥ 1024px  (desktop)
+   =================================================== */
+
+/* ── Mobile bottom navigation bar ── */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1500;background:#fff;border-top:1px solid var(--border);box-shadow:0 -2px 10px rgba(0,0,0,.08)}
+.mobile-nav-inner{display:flex;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mob-nav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 14px;background:none;border:none;cursor:pointer;color:var(--text-2);font-size:0.62rem;font-weight:700;position:relative;min-width:56px;transition:.15s}
+.mob-nav-btn.active,.mob-nav-btn:active{color:var(--blue)}
+.mob-nav-btn .mob-icon{font-size:1.3rem;line-height:1}
+.mob-nav-cart-badge{position:absolute;top:2px;right:10px;background:var(--yellow);color:#fff;font-size:0.58rem;font-weight:800;padding:1px 4px;border-radius:10px;min-width:16px;text-align:center}
+
+/* ── Mobile filter drawer ── */
+.filter-drawer-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.5)}
+.filter-drawer-overlay.open{display:block}
+.filter-drawer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:16px 16px 0 0;max-height:85vh;overflow-y:auto;z-index:2001;transform:translateY(100%);transition:.3s cubic-bezier(.4,0,.2,1);padding-bottom:env(safe-area-inset-bottom)}
+.filter-drawer-overlay.open .filter-drawer{transform:translateY(0)}
+.filter-drawer-hd{padding:16px 20px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:1}
+.filter-drawer-hd h3{font-family:var(--font);font-size:1rem;font-weight:800}
+.filter-drawer-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-2);padding:4px}
+.filter-drawer-body{padding:16px 20px}
+.filter-drawer-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.filter-drawer-cat{padding:10px 8px;border:1.5px solid var(--border);border-radius:var(--radius-lg);text-align:center;cursor:pointer;font-size:0.75rem;font-weight:700;color:var(--text-3);transition:.15s}
+.filter-drawer-cat.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.filter-drawer-cat .dc-icon{font-size:1.3rem;display:block;margin-bottom:2px}
+.filter-section-mobile{padding:12px 0;border-top:1px solid var(--border)}
+.filter-section-mobile .filter-title{font-weight:700;font-size:0.88rem;margin-bottom:10px;color:var(--text)}
+.filter-apply-btn{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-weight:800;font-size:0.95rem;margin-top:16px;cursor:pointer}
+.filter-apply-btn:active{background:var(--blue-dark)}
+
+/* ── Mobile search bar (full width, shown on scroll or tap) ── */
+.mobile-search-bar{display:none;position:sticky;top:var(--header-h);z-index:900;background:var(--blue);padding:8px 12px}
+.mobile-search-inner{display:flex;background:#fff;border-radius:var(--radius);overflow:hidden}
+.mobile-search-inner input{flex:1;border:none;outline:none;padding:9px 12px;font-size:0.9rem}
+.mobile-search-inner button{background:var(--yellow);border:none;padding:9px 14px;color:#fff;font-size:1rem;cursor:pointer}
+
+/* ── Floating action button (mobile) ── */
+.fab-filter{display:none;position:fixed;bottom:80px;right:16px;z-index:1400;background:var(--blue);color:#fff;border:none;border-radius:50px;padding:12px 18px;font-size:0.82rem;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(40,116,240,.4);gap:6px;align-items:center}
+.fab-filter:active{transform:scale(.96)}
+
+/* ===== LARGE DESKTOP (≥1280px) ===== */
+@media(min-width:1280px){
+  .main-wrap{grid-template-columns:240px 1fr}
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .hero h1{font-size:2.6rem}
+}
+
+/* ===== TABLET LANDSCAPE (768px – 1023px) ===== */
+@media(max-width:1023px) and (min-width:768px){
+  .main-wrap{grid-template-columns:200px 1fr;gap:12px}
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+  .hero h1{font-size:1.9rem}
+  .hero-stats{gap:20px}
+  .stat-num{font-size:1.4rem}
+  .detail-body{grid-template-columns:1fr 1fr;gap:20px;padding:16px}
+  .detail-main-img{height:320px}
+  .checkout-body{grid-template-columns:1fr 320px;gap:14px}
+  .h-btn{min-width:60px;padding:6px 10px;font-size:0.72rem}
+  .cart-panel{width:380px}
+}
+
+/* ===== TABLET PORTRAIT / LARGE PHONE (640px – 767px) ===== */
+@media(max-width:767px){
+  :root{--header-h:52px}
+  body{padding-bottom:70px} /* space for bottom nav */
+
+  /* Header */
+  .header-top{padding:0 10px;gap:8px}
+  .logo-sub{display:none}
+  .logo-name{font-size:1.15rem}
+  .header-search{max-width:none;flex:1}
+  .header-actions{gap:0}
   .h-btn span:not(.icon,.cart-count){display:none}
-  .h-btn{min-width:auto;padding:8px}
-  .hero h1{font-size:1.5rem}
-  .detail-name{font-size:1.3rem}
-  .detail-price{font-size:1.5rem}
-  .checkout-body{grid-template-columns:1fr}
+  .h-btn{min-width:auto;padding:6px 8px}
+  .h-btn .icon{font-size:1.2rem}
+
+  /* Hide desktop search in nav area — show mobile bar */
+  .header-search{display:none}
+  .mobile-search-bar{display:block}
+
+  /* Nav bar */
+  .nav-bar{display:none} /* replaced by category drawer */
+
+  /* Hero */
+  .hero{padding:24px 12px}
+  .hero h1{font-size:1.55rem}
+  .hero p{font-size:0.88rem;margin-bottom:14px}
+  .hero-btns{gap:8px}
+  .btn-hero{padding:10px 20px;font-size:0.82rem}
+  .hero-stats{gap:16px;margin-top:18px}
+  .stat-num{font-size:1.3rem}
+  .stat-label{font-size:0.68rem}
+
+  /* Main layout — sidebar hidden, replaced by drawer */
+  .main-wrap{grid-template-columns:1fr;padding:10px;gap:10px}
+  .sidebar{display:none}
+  .fab-filter{display:flex}
+  .mobile-nav{display:block}
+
+  /* Controls bar */
+  .controls-bar{padding:10px 12px;flex-wrap:nowrap}
+  .results-info{font-size:0.8rem}
+  .sort-label{display:none}
+  .sort-select{font-size:0.78rem;padding:6px 24px 6px 8px}
+
+  /* Product grid */
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .card-img-wrap{height:150px}
+  .card-body{padding:8px}
+  .card-name{font-size:0.82rem}
+  .card-price{font-size:0.95rem}
+  .card-desc{display:none}
+  .card-footer{padding:8px}
+  .btn-cart,.btn-view{font-size:0.72rem;padding:7px 2px}
+
+  /* Product detail */
+  .detail-overlay{transform:translateY(100%)}
+  .detail-overlay.open{transform:translateY(0)}
+  .detail-hd{padding:12px 16px}
+  .detail-body{grid-template-columns:1fr;gap:12px;padding:16px 12px}
+  .detail-imgs{position:static}
+  .detail-main-img{height:280px}
+  .detail-name{font-size:1.25rem}
+  .detail-price{font-size:1.6rem}
+  .detail-actions{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;z-index:100;background:#fff;box-shadow:0 -2px 12px rgba(0,0,0,.1);gap:10px}
+  .btn-detail-cart,.btn-detail-buy{padding:12px 10px;font-size:0.85rem}
+  .specs-grid{grid-template-columns:1fr 1fr}
+  .related-section{grid-column:1/-1}
+  .related-card{width:140px}
+  .related-img{height:100px}
+
+  /* Cart sidebar */
+  .cart-panel{width:100vw}
+  .cart-item{padding:10px}
+  .cart-img{width:60px;height:60px}
+
+  /* Checkout */
+  .checkout-body{grid-template-columns:1fr;padding:0 10px}
+  .checkout-hd{padding:12px 14px}
+  .checkout-hd h2{font-size:1rem}
   .track-inputs{flex-direction:column}
   .tracking-timeline{padding:16px 8px}
+
+  /* Auth modal */
+  .modal{max-width:100%;border-radius:16px 16px 0 0;margin:0;position:fixed;bottom:0;max-height:92vh}
+  .overlay{align-items:flex-end;padding:0}
+
+  /* Toasts */
+  .toast-wrap{bottom:80px;right:10px;left:10px}
+  .toast{min-width:unset;width:100%;justify-content:center}
+
+  /* Orders / tracking */
+  .orders-body,.tracking-body{padding:0 10px}
+  .order-card-hd{flex-direction:column;align-items:flex-start}
+  .otc-hd{flex-direction:column;gap:8px}
+
+  /* Footer */
+  .footer-top{grid-template-columns:1fr;padding:24px 16px;gap:24px}
+  .footer-bottom-inner{flex-direction:column;gap:8px;text-align:center}
 }
-@media(max-width:400px){
-  .logo-name{font-size:1.1rem}
-  .header-search{max-width:140px}
-  .header-search input{padding:8px 10px;font-size:0.82rem}
+
+/* ===== SMALL PHONES (< 480px) ===== */
+@media(max-width:479px){
+  .hero h1{font-size:1.3rem}
+  .hero p{font-size:0.82rem}
+  .btn-hero{padding:9px 16px;font-size:0.78rem}
+  .stat-num{font-size:1.15rem}
+  .hero-stats{gap:12px}
+
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .card-img-wrap{height:130px}
+  .card-price{font-size:0.88rem}
+  .card-name{font-size:0.78rem}
+  .btn-cart,.btn-view{font-size:0.68rem;padding:6px 1px}
+
+  .detail-main-img{height:240px}
+  .detail-name{font-size:1.1rem}
+  .specs-grid{grid-template-columns:1fr}
+
+  .logo-name{font-size:1rem}
+  .h-btn{padding:5px 6px}
+
+  .success-title{font-size:1.4rem}
+  .order-id-val{font-size:1.1rem}
+
+  .upi-number h2{font-size:1.5rem}
+}
+
+/* ===== VERY SMALL PHONES (< 360px) ===== */
+@media(max-width:359px){
+  .header-top{gap:4px;padding:0 6px}
+  .logo-name{font-size:0.9rem}
+  .mobile-search-inner input{font-size:0.82rem;padding:8px 8px}
+  .product-grid{gap:6px}
+  .card-footer{flex-direction:column;gap:4px}
+  .btn-cart,.btn-view{font-size:0.7rem;padding:7px}
+}
+
+/* ===== TOUCH IMPROVEMENTS (all touch devices) ===== */
+@media(hover:none) and (pointer:coarse){
+  .card-wishlist{opacity:1} /* always show on touch */
+  .product-card:hover{transform:none;box-shadow:var(--shadow)} /* no hover lift on touch */
+  .product-card:active{transform:scale(.98);box-shadow:var(--shadow-lg)}
+  .btn-cart:active,.btn-view:active,.btn-primary:active{transform:scale(.97)}
+  .h-btn:active{background:rgba(255,255,255,.2)}
+  .cat-item:active{background:var(--blue-light)}
+  /* Larger tap targets */
+  .qty-btn{padding:8px 14px;font-size:1.1rem}
+  .btn-remove{padding:6px 0;font-size:0.82rem}
+  .nav-item{padding:12px 16px}
+}
+
+/* ===== PRINT ===== */
+@media print{
+  #header,.mobile-nav,.fab-filter,.hero,.sidebar,footer{display:none}
+  .main-wrap{grid-template-columns:1fr;padding:0}
+  .product-grid{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
@@ -479,13 +708,19 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
     </div>
   </div>
   <nav class="nav-bar">
-    <div class="nav-inner" id="navCategories">
-      <!-- injected by JS -->
-    </div>
+    <div class="nav-inner" id="navCategories"></div>
   </nav>
 </header>
 
-<!-- ===== HERO ===== -->
+<!-- ===== MOBILE SEARCH BAR ===== -->
+<div class="mobile-search-bar" id="mobileSearchBar">
+  <div class="mobile-search-inner">
+    <input type="text" id="mobileSearchInput" placeholder="Search products, brands..." autocomplete="off">
+    <button onclick="performMobileSearch()">🔍</button>
+  </div>
+</div>
+
+
 <div class="hero">
   <div class="hero-content">
     <h1>India's #1 Electronics Destination</h1>
@@ -517,6 +752,7 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
           <input type="number" class="price-input" id="priceMax" placeholder="Max" min="0">
         </div>
         <button class="btn-apply" onclick="applyPriceFilter()">Apply Filter</button>
+        <button class="btn-clear-filters" onclick="clearAllFilters()">✕ Clear All Filters</button>
       </div>
     </div>
     <div class="filter-section">
@@ -524,7 +760,7 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
       <div class="rating-filter" id="ratingFilter">
         <label class="rating-opt"><input type="radio" name="rating" value="4" onchange="applyRatingFilter(4)"> <span class="stars-mini">⭐⭐⭐⭐</span> 4★ & above</label>
         <label class="rating-opt"><input type="radio" name="rating" value="3" onchange="applyRatingFilter(3)"> <span class="stars-mini">⭐⭐⭐</span> 3★ & above</label>
-        <label class="rating-opt"><input type="radio" name="rating" value="0" onchange="applyRatingFilter(0)"> All Ratings</label>
+        <label class="rating-opt"><input type="radio" name="rating" value="0" checked onchange="applyRatingFilter(0)"> All Ratings</label>
       </div>
     </div>
   </aside>
@@ -532,7 +768,10 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
   <!-- Content -->
   <div class="content-area">
     <div class="controls-bar">
-      <div class="results-info" id="resultsInfo">All Products <span id="resultsCount"></span></div>
+      <div>
+        <div class="results-info" id="resultsInfo">All Products</div>
+        <div class="active-filters" id="activeFilters"></div>
+      </div>
       <div class="sort-wrap">
         <span class="sort-label">Sort by:</span>
         <select class="sort-select" id="sortSelect" onchange="handleSort(this.value)">
@@ -548,7 +787,86 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
   </div>
 </div>
 
-<!-- ===== FOOTER ===== -->
+<!-- ===== MOBILE BOTTOM NAVIGATION ===== -->
+<nav class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-inner">
+    <button class="mob-nav-btn active" id="mobNavHome" onclick="mobileNavClick('home',this)">
+      <span class="mob-icon">🏪</span>Home
+    </button>
+    <button class="mob-nav-btn" id="mobNavSearch" onclick="mobileNavClick('search',this)">
+      <span class="mob-icon">🔍</span>Search
+    </button>
+    <button class="mob-nav-btn" id="mobNavCart" onclick="mobileNavClick('cart',this)">
+      <span class="mob-icon">🛒</span>Cart
+      <span class="mob-nav-cart-badge" id="mobCartBadge">0</span>
+    </button>
+    <button class="mob-nav-btn" id="mobNavOrders" onclick="mobileNavClick('orders',this)">
+      <span class="mob-icon">📦</span>Orders
+    </button>
+    <button class="mob-nav-btn" id="mobNavAccount" onclick="mobileNavClick('account',this)">
+      <span class="mob-icon">👤</span><span id="mobLoginLabel">Login</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== FAB FILTER BUTTON ===== -->
+<button class="fab-filter" id="fabFilter" onclick="openFilterDrawer()">
+  <span>⚙️</span> Filter & Sort
+</button>
+
+<!-- ===== MOBILE FILTER DRAWER ===== -->
+<div class="filter-drawer-overlay" id="filterDrawerOverlay" onclick="closeFilterDrawerOnOutside(event)">
+  <div class="filter-drawer" id="filterDrawer">
+    <div class="filter-drawer-hd">
+      <h3>⚙️ Filter & Sort</h3>
+      <button class="filter-drawer-close" onclick="closeFilterDrawer()">✕</button>
+    </div>
+    <div class="filter-drawer-body">
+
+      <!-- Categories -->
+      <div style="margin-bottom:4px">
+        <div class="filter-title">Browse Category</div>
+        <div class="filter-drawer-cats" id="drawerCats"></div>
+      </div>
+
+      <!-- Sort -->
+      <div class="filter-section-mobile">
+        <div class="filter-title">Sort By</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px" id="drawerSortOpts">
+          <button class="drawer-sort-btn active" data-val="default" onclick="drawerSort('default',this)">Relevance</button>
+          <button class="drawer-sort-btn" data-val="priceLow" onclick="drawerSort('priceLow',this)">Price ↑</button>
+          <button class="drawer-sort-btn" data-val="priceHigh" onclick="drawerSort('priceHigh',this)">Price ↓</button>
+          <button class="drawer-sort-btn" data-val="rating" onclick="drawerSort('rating',this)">Top Rated</button>
+          <button class="drawer-sort-btn" data-val="newest" onclick="drawerSort('newest',this)">Newest</button>
+        </div>
+      </div>
+
+      <!-- Price Range -->
+      <div class="filter-section-mobile">
+        <div class="filter-title">Price Range (₹)</div>
+        <div class="price-inputs">
+          <input type="number" class="price-input" id="drawerPriceMin" placeholder="Min">
+          <input type="number" class="price-input" id="drawerPriceMax" placeholder="Max">
+        </div>
+      </div>
+
+      <!-- Rating -->
+      <div class="filter-section-mobile">
+        <div class="filter-title">Customer Rating</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <button class="drawer-sort-btn active" data-rating="0" onclick="drawerRating(0,this)">All</button>
+          <button class="drawer-sort-btn" data-rating="3" onclick="drawerRating(3,this)">3★ & above</button>
+          <button class="drawer-sort-btn" data-rating="4" onclick="drawerRating(4,this)">4★ & above</button>
+        </div>
+      </div>
+
+      <button class="filter-apply-btn" onclick="applyDrawerFilters()">Apply Filters</button>
+      <button onclick="clearAllFilters();closeFilterDrawer()" style="width:100%;padding:11px;background:#fff;color:var(--red);border:1.5px solid var(--red);border-radius:var(--radius);font-weight:700;font-size:0.88rem;margin-top:8px;cursor:pointer">✕ Clear All</button>
+    </div>
+  </div>
+</div>
+
+
 <footer>
   <div class="footer-top">
     <div class="footer-col footer-brand">
@@ -588,7 +906,7 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
       <div class="contact-info">
         <div class="contact-row"><span class="contact-row-icon">📍</span><span>123 Tech Park, Electronic City, Bangalore, Karnataka 560100</span></div>
         <div class="contact-row"><span class="contact-row-icon">📞</span><span>+91 91235 94031</span></div>
-        <div class="contact-row"><span class="contact-row-icon">✉️</span><span>support@electroindia.com</span></div>
+        <div class="contact-row"><span class="contact-row-icon">✉️</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff8c8a8f8f908d8bbf9a939a9c8b8d9096919b969ed19c9092">[email&#160;protected]</a></span></div>
         <div class="contact-row"><span class="contact-row-icon">⏰</span><span>Mon–Sat: 9AM–8PM IST</span></div>
       </div>
     </div>
@@ -621,36 +939,50 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
         <div class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Login</div>
         <div class="auth-tab" id="tabRegister" onclick="switchTab('register')">Register</div>
       </div>
+
+      <!-- LOGIN FORM -->
       <form class="auth-form active" id="loginForm" onsubmit="doLogin(event)">
         <div class="form-group">
-          <label class="form-label">Email / Mobile</label>
-          <input type="text" class="form-input" id="loginEmail" placeholder="Enter email or mobile" required>
+          <label class="form-label">Email / Mobile Number</label>
+          <input type="text" class="form-input" id="loginEmail" placeholder="Enter email or mobile number" required autocomplete="username">
+          <div class="form-error" id="loginEmailErr">Please enter a valid email or mobile number</div>
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
-          <input type="password" class="form-input" id="loginPassword" placeholder="Enter password" required>
+          <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+          <div class="form-error" id="loginPasswordErr">Incorrect password</div>
         </div>
-        <button type="submit" class="btn-primary">Login Securely</button>
+        <div class="form-error" id="loginGeneralErr" style="margin-bottom:10px;padding:8px;background:#fff0f0;border-radius:4px"></div>
+        <button type="submit" class="btn-primary" id="loginBtn">Login Securely 🔒</button>
         <div class="auth-switch">Don't have an account? <a onclick="switchTab('register')">Register here</a></div>
       </form>
+
+      <!-- REGISTER FORM -->
       <form class="auth-form" id="registerForm" onsubmit="doRegister(event)">
         <div class="form-group">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-input" id="regName" placeholder="Enter your full name" required>
+          <label class="form-label">Full Name <span style="color:var(--red)">*</span></label>
+          <input type="text" class="form-input" id="regName" placeholder="Enter your full name" required autocomplete="name">
+          <div class="form-error" id="regNameErr">Please enter your full name (min 2 characters)</div>
         </div>
         <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" id="regEmail" placeholder="Enter email address" required>
+          <label class="form-label">Email Address <span style="color:var(--red)">*</span></label>
+          <input type="email" class="form-input" id="regEmail" placeholder="Enter your email address" required autocomplete="email">
+          <div class="form-error" id="regEmailErr">Please enter a valid email address</div>
         </div>
         <div class="form-group">
-          <label class="form-label">Mobile Number</label>
-          <input type="tel" class="form-input" id="regMobile" placeholder="+91 XXXXX XXXXX" required>
+          <label class="form-label">Mobile Number <span style="color:var(--red)">*</span></label>
+          <input type="tel" class="form-input" id="regMobile" placeholder="Enter 10-digit mobile number" required autocomplete="tel" maxlength="10">
+          <div class="form-error" id="regMobileErr">Please enter a valid 10-digit mobile number</div>
         </div>
         <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" id="regPassword" placeholder="Create a strong password" required>
+          <label class="form-label">Password <span style="color:var(--red)">*</span></label>
+          <input type="password" class="form-input" id="regPassword" placeholder="Create a strong password (min 6 chars)" required autocomplete="new-password" oninput="checkPasswordStrength(this.value)">
+          <div class="password-strength"><div class="password-strength-bar" id="strengthBar"></div></div>
+          <div class="strength-text" id="strengthText"></div>
+          <div class="form-error" id="regPasswordErr">Password must be at least 6 characters</div>
         </div>
-        <button type="submit" class="btn-primary">Create Account</button>
+        <div class="form-error" id="regGeneralErr" style="margin-bottom:10px;padding:8px;background:#fff0f0;border-radius:4px"></div>
+        <button type="submit" class="btn-primary" id="registerBtn">Create Account 🎉</button>
         <div class="auth-switch">Already have an account? <a onclick="switchTab('login')">Login here</a></div>
       </form>
     </div>
@@ -673,7 +1005,7 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
   </div>
   <div class="detail-body">
     <div class="detail-imgs">
-      <img id="detailMainImg" src="" alt="" class="detail-main-img">
+      <img id="detailMainImg" src="" alt="" class="detail-main-img" onerror="this.src='https://placehold.co/400x400/f9f9f9/878787?text=Product+Image'">
       <div class="detail-thumbs" id="detailThumbs"></div>
     </div>
     <div class="detail-info">
@@ -736,7 +1068,7 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
             <div class="address-type">Home</div>
             <div class="address-name" id="checkoutUserName">Guest User</div>
             <div class="address-text">123 Main Street, Koramangala, Bangalore, Karnataka – 560034</div>
-            <div class="address-phone">+91 91235 94031</div>
+            <div class="address-phone" id="checkoutUserPhone">+91 91235 94031</div>
             <div class="address-badge">Default</div>
           </div>
         </div>
@@ -855,7 +1187,7 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
 <!-- Toast Container -->
 <div class="toast-wrap" id="toastWrap"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ============================================================
 // DATA
 // ============================================================
@@ -883,7 +1215,6 @@ const PRODUCTS = [
   {id:8,name:'Nothing Phone 2a',brand:'Nothing',category:'Mobiles',price:23999,mrp:27999,rating:4.3,reviews:6700,desc:'Dimensity 7200 Pro, 8GB RAM, 128GB, Glyph Interface, 50MP Camera',specs:{'Processor':'Dimensity 7200 Pro','RAM':'8 GB','Storage':'128 GB','Camera':'50 MP','Battery':'5000 mAh'},img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&q=80',badge:'NEW'},
   {id:9,name:'Motorola Edge 40',brand:'Motorola',category:'Mobiles',price:21999,mrp:26999,rating:4.1,reviews:4100,desc:'Dimensity 8020, 8GB RAM, 256GB, 50MP OIS Camera, 68W TurboPower',specs:{'Processor':'Dimensity 8020','RAM':'8 GB','Storage':'256 GB','Camera':'50 MP','Battery':'4400 mAh'},img:'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=300&q=80',badge:''},
   {id:10,name:'iQOO Z9 5G',brand:'iQOO',category:'Mobiles',price:13999,mrp:16999,rating:4.2,reviews:8900,desc:'Snapdragon 7 Gen 3, 8GB RAM, 128GB, 50MP Camera, 44W FlashCharge',specs:{'Processor':'Snapdragon 7 Gen 3','RAM':'8 GB','Storage':'128 GB','Camera':'50 MP','Battery':'5500 mAh'},img:'https://images.unsplash.com/photo-1571380401583-72ca84994796?w=300&q=80',badge:'HOT'},
-
   // LAPTOPS (10)
   {id:11,name:'HP Pavilion 15',brand:'HP',category:'Laptops',price:58990,mrp:72990,rating:4.3,reviews:7200,desc:'Intel i5 12th Gen, 16GB DDR4, 512GB SSD, Windows 11, Full HD Display',specs:{'Processor':'Intel i5-1235U','RAM':'16 GB DDR4','Storage':'512 GB SSD','Display':'15.6" Full HD','OS':'Windows 11'},img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&q=80',badge:''},
   {id:12,name:'MacBook Air M2',brand:'Apple',category:'Laptops',price:99900,mrp:114900,rating:4.8,reviews:18400,desc:'Apple M2 Chip, 8GB Unified Memory, 256GB SSD, Liquid Retina Display, All-Day Battery',specs:{'Chip':'Apple M2','RAM':'8 GB Unified','Storage':'256 GB SSD','Display':'13.6" Liquid Retina','Battery':'Up to 18h'},img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&q=80',badge:'TOP'},
@@ -895,7 +1226,6 @@ const PRODUCTS = [
   {id:18,name:'MSI Thin GF63',brand:'MSI',category:'Laptops',price:54990,mrp:69990,rating:4.0,reviews:5600,desc:'Intel i5-12450H, 8GB RAM, 512GB SSD, NVIDIA RTX 2050 4GB, 144Hz Display',specs:{'Processor':'Intel i5-12450H','RAM':'8 GB','Storage':'512 GB SSD','GPU':'RTX 2050 4GB','Display':'15.6" 144Hz FHD'},img:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=300&q=80',badge:''},
   {id:19,name:'Samsung Galaxy Book3',brand:'Samsung',category:'Laptops',price:77990,mrp:89990,rating:4.3,reviews:2400,desc:'Intel Core i7 13th Gen, 16GB RAM, 512GB SSD, 15.6" Full HD AMOLED, Super Fast Charge',specs:{'Processor':'Intel i7-1355U','RAM':'16 GB','Storage':'512 GB SSD','Display':'15.6" FHD AMOLED','OS':'Windows 11'},img:'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=300&q=80',badge:''},
   {id:20,name:'Realme Book Prime',brand:'Realme',category:'Laptops',price:39999,mrp:49999,rating:3.9,reviews:6700,desc:'Intel Core i3 12th Gen, 8GB RAM, 256GB SSD, 14" Full HD IPS, Fast Charge',specs:{'Processor':'Intel i3-1215U','RAM':'8 GB','Storage':'256 GB SSD','Display':'14" FHD IPS','Battery':'Up to 11h'},img:'https://images.unsplash.com/photo-1515343480029-43cdfe6b6aae?w=300&q=80',badge:''},
-
   // TVs (8)
   {id:21,name:'Sony Bravia 55" 4K',brand:'Sony',category:'TVs',price:62990,mrp:84990,rating:4.5,reviews:14200,desc:'4K Ultra HD Smart LED TV, Google TV, Dolby Atmos, HDR10, HDMI 2.1',specs:{'Screen':'55 inch 4K UHD','Smart TV':'Google TV','Sound':'Dolby Atmos','HDR':'HDR10, HLG','Ports':'HDMI 2.1 x4'},img:'https://images.unsplash.com/photo-1593359677879-a4bb92f4834a?w=300&q=80',badge:'TOP'},
   {id:22,name:'LG C2 42" OLED',brand:'LG',category:'TVs',price:130000,mrp:169990,rating:4.8,reviews:8900,desc:'OLED evo, Self-Lit Pixels, G-Sync Compatible, 120Hz, Dolby Vision IQ',specs:{'Screen':'42 inch OLED evo','Refresh Rate':'120 Hz','Gaming':'G-Sync, VRR','HDR':'Dolby Vision IQ','Smart TV':'webOS 22'},img:'https://images.unsplash.com/photo-1571415060716-baff5b717ce4?w=300&q=80',badge:'TOP'},
@@ -905,7 +1235,6 @@ const PRODUCTS = [
   {id:26,name:'TCL 65" 4K QLED',brand:'TCL',category:'TVs',price:59999,mrp:79990,rating:4.0,reviews:7200,desc:'65 inch 4K QLED Smart TV, 144Hz, Dolby Atmos, Google TV, Game Master Pro',specs:{'Screen':'65 inch QLED 4K','Refresh Rate':'144 Hz','Smart TV':'Google TV','Sound':'Dolby Atmos','Gaming':'Game Master Pro'},img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80',badge:''},
   {id:27,name:'Vu 32" HD Smart TV',brand:'Vu',category:'TVs',price:11999,mrp:16999,rating:3.8,reviews:12800,desc:'32 inch HD Ready Smart TV, Android TV, 24W Sound, 2 HDMI, 2 USB ports',specs:{'Screen':'32 inch HD Ready','Smart TV':'Android TV','Sound':'24W','Ports':'2 HDMI, 2 USB','Resolution':'1366x768'},img:'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=300&q=80',badge:''},
   {id:28,name:'Panasonic 75" 4K LED',brand:'Panasonic',category:'TVs',price:89990,mrp:119990,rating:4.4,reviews:3200,desc:'75 inch 4K Smart LED TV, Fire TV Built-In, 50W Sound, 5 HDMI Ports',specs:{'Screen':'75 inch 4K UHD','Smart TV':'Fire TV','Sound':'50W','HDR':'HDR10, HLG','Ports':'5 HDMI'},img:'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=300&q=80',badge:''},
-
   // FASHION (9)
   {id:29,name:'Allen Solly Men\'s Chinos',brand:'Allen Solly',category:'Fashion',price:1499,mrp:2499,rating:4.2,reviews:3400,desc:'Slim fit chinos, stretch fabric, multiple colors available, machine washable',specs:{'Fit':'Slim Fit','Fabric':'Cotton Stretch','Sizes':'28–40','Wash':'Machine Wash','Colors':'5 Options'},img:'https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&q=80',badge:''},
   {id:30,name:'Levis 511 Slim Jeans',brand:'Levi\'s',category:'Fashion',price:2299,mrp:3599,rating:4.5,reviews:8900,desc:'511 Slim fit jeans, Flex fabric, 5-pocket styling, iconic Levi\'s quality',specs:{'Fit':'Slim Fit','Fabric':'Flex Denim','Sizes':'28–40','Rise':'Mid Rise','Wash':'Dark'},img:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=300&q=80',badge:'TOP'},
@@ -916,7 +1245,6 @@ const PRODUCTS = [
   {id:35,name:'W Women\'s Kurta Set',brand:'W',category:'Fashion',price:1599,mrp:2699,rating:4.6,reviews:7800,desc:'Printed straight kurta with palazzo pants, cotton blend, ethnic festive wear',specs:{'Set':'Kurta + Palazzo','Fabric':'Cotton Blend','Sizes':'XS–2XL','Occasion':'Ethnic/Festive','Print':'Floral'},img:'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=300&q=80',badge:'NEW'},
   {id:36,name:'Fossil Gen 6 Smartwatch',brand:'Fossil',category:'Fashion',price:14995,mrp:22995,rating:4.0,reviews:2300,desc:'Wear OS by Google, AMOLED display, heart rate, GPS, 1+ day battery',specs:{'OS':'Wear OS 3','Display':'1.28" AMOLED','Sensors':'Heart Rate, SPO2','GPS':'Built-in','Battery':'24h'},img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80',badge:''},
   {id:37,name:'Baggit Women\'s Handbag',brand:'Baggit',category:'Fashion',price:1799,mrp:2999,rating:4.3,reviews:4500,desc:'Vegan leather structured handbag, multiple pockets, detachable strap',specs:{'Material':'Vegan Leather','Compartments':'3 Main + 2 Zip','Strap':'Detachable','Dimensions':'30x25x12 cm','Colors':'5 Options'},img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&q=80',badge:''},
-
   // HOME & KITCHEN (8)
   {id:38,name:'Philips Air Fryer',brand:'Philips',category:'Home & Kitchen',price:6999,mrp:11995,rating:4.5,reviews:18200,desc:'4.1L Digital Air Fryer, Rapid Air Technology, 7 presets, touchscreen display',specs:{'Capacity':'4.1 Litres','Technology':'Rapid Air','Presets':'7 Settings','Power':'1400W','Display':'Digital Touch'},img:'https://images.unsplash.com/photo-1585515320310-259814833e62?w=300&q=80',badge:'HOT'},
   {id:39,name:'Instant Pot Duo 7-in-1',brand:'Instant Pot',category:'Home & Kitchen',price:8499,mrp:12995,rating:4.6,reviews:9800,desc:'Pressure Cooker, Slow Cooker, Rice Cooker, Steamer, Sauté, Yogurt Maker, Warmer',specs:{'Capacity':'5.7 Litres','Functions':'7-in-1','Smart Program':'13 settings','Safety':'10 safety features','Material':'Stainless Steel'},img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&q=80',badge:'TOP'},
@@ -926,7 +1254,6 @@ const PRODUCTS = [
   {id:43,name:'Havells Ceiling Fan',brand:'Havells',category:'Home & Kitchen',price:3499,mrp:4999,rating:4.2,reviews:7800,desc:'1200mm BLDC motor ceiling fan, 5-star rating, remote control, energy efficient',specs:{'Sweep':'1200 mm','Motor':'BLDC','Speed':'6 Levels','Control':'Remote','Energy Star':'5 Star BEE'},img:'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&q=80',badge:'NEW'},
   {id:44,name:'Prestige Gas Stove 3B',brand:'Prestige',category:'Home & Kitchen',price:3999,mrp:5499,rating:4.4,reviews:11200,desc:'3-burner toughened glass gas stove, auto ignition, flame failure device',specs:{'Burners':'3 Brass Burners','Top':'Toughened Glass','Ignition':'Auto','Safety':'Flame Failure Device','Finish':'Black'},img:'https://images.unsplash.com/photo-1556909045-496d74e00c11?w=300&q=80',badge:''},
   {id:45,name:'Milton Thermos Flask',brand:'Milton',category:'Home & Kitchen',price:799,mrp:1299,rating:4.3,reviews:34500,desc:'1 Litre Thermosteel Flask, keeps hot/cold for 24 hours, leak-proof lid',specs:{'Capacity':'1 Litre','Material':'Stainless Steel','Hot':'24 hours','Cold':'24 hours','Lid':'Leak-Proof'},img:'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=300&q=80',badge:''},
-
   // BOOKS (7)
   {id:46,name:'Atomic Habits',brand:'James Clear',category:'Books',price:399,mrp:799,rating:4.8,reviews:54200,desc:'An Easy & Proven Way to Build Good Habits & Break Bad Ones — international bestseller',specs:{'Author':'James Clear','Pages':'320','Publisher':'Penguin','Language':'English','Edition':'Paperback'},img:'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&q=80',badge:'TOP'},
   {id:47,name:'Rich Dad Poor Dad',brand:'Robert Kiyosaki',category:'Books',price:299,mrp:599,rating:4.6,reviews:38900,desc:'What the Rich Teach Their Kids About Money That the Poor and Middle Class Do Not!',specs:{'Author':'Robert Kiyosaki','Pages':'254','Publisher':'Manjul','Language':'English','Edition':'Paperback'},img:'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=300&q=80',badge:'HOT'},
@@ -935,7 +1262,6 @@ const PRODUCTS = [
   {id:50,name:'The Psychology of Money',brand:'Morgan Housel',category:'Books',price:349,mrp:599,rating:4.7,reviews:29400,desc:'Timeless lessons on wealth, greed, and happiness — financial wisdom for everyone',specs:{'Author':'Morgan Housel','Pages':'256','Publisher':'Jaico','Language':'English','Edition':'Paperback'},img:'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=300&q=80',badge:'NEW'},
   {id:51,name:'Zero to One',brand:'Peter Thiel',category:'Books',price:329,mrp:599,rating:4.5,reviews:14600,desc:'Notes on Startups, or How to Build the Future — startup bible by Peter Thiel',specs:{'Author':'Peter Thiel','Pages':'195','Publisher':'Virgin Books','Language':'English','Edition':'Paperback'},img:'https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=300&q=80',badge:''},
   {id:52,name:'Harry Potter Box Set',brand:'J.K. Rowling',category:'Books',price:2499,mrp:4199,rating:4.9,reviews:102400,desc:'Complete 7-book Harry Potter series, collector\'s edition box set, perfect gift',specs:{'Author':'J.K. Rowling','Books':'7 Complete Books','Publisher':'Bloomsbury','Language':'English','Edition':'Box Set'},img:'https://images.unsplash.com/photo-1604580864964-0462f5d5b1a8?w=300&q=80',badge:'TOP'},
-
   // ACCESSORIES (9)
   {id:53,name:'Sony WH-1000XM5',brand:'Sony',category:'Accessories',price:24990,mrp:34990,rating:4.7,reviews:18900,desc:'Industry-leading noise cancelling headphones, 30hr battery, multipoint connection',specs:{'Type':'Over-Ear','Noise Cancelling':'Yes (ANC)','Battery':'30 Hours','Connection':'Bluetooth 5.2','Weight':'250g'},img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80',badge:'TOP'},
   {id:54,name:'boAt Rockerz 450',brand:'boAt',category:'Accessories',price:1499,mrp:2999,rating:4.0,reviews:42100,desc:'Bluetooth Headset, Over Ear, 15 Hours Playback, 40mm Drivers, foldable design',specs:{'Type':'Over-Ear','Battery':'15 Hours','Drivers':'40mm','Bluetooth':'5.0','Weight':'220g'},img:'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&q=80',badge:''},
@@ -946,7 +1272,6 @@ const PRODUCTS = [
   {id:59,name:'Amazon Kindle 2022',brand:'Amazon',category:'Accessories',price:9999,mrp:12999,rating:4.5,reviews:16200,desc:'16GB Kindle with adjustable warm light, waterproof, 6" glare-free display, weeks of battery',specs:{'Display':'6" 300ppi','Storage':'16 GB','Waterproof':'IPX8','Battery':'6 Weeks','Light':'Adjustable Warm Light'},img:'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&q=80',badge:'NEW'},
   {id:60,name:'Apple AirPods Pro 2',brand:'Apple',category:'Accessories',price:24900,mrp:29900,rating:4.7,reviews:21800,desc:'Active Noise Cancellation, Transparency mode, Spatial Audio, USB-C, H2 chip',specs:{'ANC':'Active Noise Cancel','Sound':'Spatial Audio','Chip':'H2','Battery':'30h total','Connector':'USB-C'},img:'https://images.unsplash.com/photo-1588423771073-b8903febb85b?w=300&q=80',badge:'TOP'},
   {id:61,name:'Anker 65W USB-C Charger',brand:'Anker',category:'Accessories',price:2499,mrp:3999,rating:4.4,reviews:11300,desc:'3-port GaN charger, 65W PPS, foldable plug, compatible with MacBook, iPad, phones',specs:{'Power':'65W','Ports':'3 (USB-C x2, A x1)','Technology':'GaN','Plug':'Foldable','Size':'Compact'},img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=300&q=80',badge:''},
-
   // GAMING (9)
   {id:62,name:'PlayStation 5',brand:'Sony',category:'Gaming',price:54990,mrp:64990,rating:4.8,reviews:32100,desc:'Next-gen gaming console, 825GB SSD, 4K gaming, Haptic Feedback DualSense controller',specs:{'Storage':'825 GB SSD','Resolution':'4K / 8K','FPS':'Up to 120fps','CPU':'AMD Zen 2 8-core','Controller':'DualSense'},img:'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=300&q=80',badge:'TOP'},
   {id:63,name:'Xbox Series X',brand:'Microsoft',category:'Gaming',price:52990,mrp:61990,rating:4.7,reviews:18400,desc:'1TB SSD, 4K gaming at 120fps, Game Pass compatible, backward compatible',specs:{'Storage':'1 TB SSD','Resolution':'4K HDR','FPS':'Up to 120fps','CPU':'AMD Zen 2 8-core','GamePass':'Compatible'},img:'https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=300&q=80',badge:''},
@@ -999,11 +1324,6 @@ const estDate = () => {
   d.setDate(d.getDate() + 4 + Math.floor(Math.random()*3));
   return d.toLocaleDateString('en-IN', {weekday:'short',day:'numeric',month:'long'});
 };
-const starsStr = (r) => {
-  const full = Math.floor(r);
-  const half = r % 1 >= 0.5 ? 1 : 0;
-  return '★'.repeat(full) + (half ? '☆' : '') + '☆'.repeat(5 - full - half);
-};
 const save = () => {
   try {
     localStorage.setItem('ei_auth', JSON.stringify(authState));
@@ -1024,15 +1344,186 @@ function toast(msg, type='success') {
 }
 
 // ============================================================
-// AUTH
+// ===== FEATURE 1: REGISTRATION PROCESS =====
+// Full validation + redirect to login after success
+// ============================================================
+function checkPasswordStrength(pwd) {
+  const bar = document.getElementById('strengthBar');
+  const txt = document.getElementById('strengthText');
+  if (!bar || !txt) return;
+  let score = 0;
+  if (pwd.length >= 6) score++;
+  if (pwd.length >= 10) score++;
+  if (/[A-Z]/.test(pwd)) score++;
+  if (/[0-9]/.test(pwd)) score++;
+  if (/[^A-Za-z0-9]/.test(pwd)) score++;
+  const levels = [
+    {w:'0%', color:'transparent', text:''},
+    {w:'20%', color:'#e53935', text:'Very Weak'},
+    {w:'40%', color:'#fb641b', text:'Weak'},
+    {w:'60%', color:'#f9a825', text:'Fair'},
+    {w:'80%', color:'#43a047', text:'Good'},
+    {w:'100%', color:'#2e7d32', text:'Strong'}
+  ];
+  const lv = levels[Math.min(score, 5)];
+  bar.style.width = lv.w;
+  bar.style.background = lv.color;
+  txt.textContent = lv.text;
+  txt.style.color = lv.color;
+}
+
+function clearFormErrors(formId) {
+  document.querySelectorAll(`#${formId} .form-error`).forEach(el => el.classList.remove('show'));
+  document.querySelectorAll(`#${formId} .form-input`).forEach(el => el.classList.remove('error'));
+}
+
+function showFieldError(fieldId, errId, msg) {
+  const field = document.getElementById(fieldId);
+  const err = document.getElementById(errId);
+  if (field) field.classList.add('error');
+  if (err) { err.textContent = msg; err.classList.add('show'); }
+}
+
+function doRegister(e) {
+  e.preventDefault();
+  clearFormErrors('registerForm');
+
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const mobile = document.getElementById('regMobile').value.trim();
+  const password = document.getElementById('regPassword').value;
+
+  let valid = true;
+
+  // Validate name
+  if (!name || name.length < 2) {
+    showFieldError('regName', 'regNameErr', 'Please enter your full name (minimum 2 characters)');
+    valid = false;
+  }
+
+  // Validate email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    showFieldError('regEmail', 'regEmailErr', 'Please enter a valid email address (e.g. user@example.com)');
+    valid = false;
+  }
+
+  // Validate mobile (10 digits)
+  const mobileRegex = /^[6-9]\d{9}$/;
+  if (!mobile || !mobileRegex.test(mobile)) {
+    showFieldError('regMobile', 'regMobileErr', 'Enter a valid 10-digit Indian mobile number (starts with 6-9)');
+    valid = false;
+  }
+
+  // Validate password
+  if (!password || password.length < 6) {
+    showFieldError('regPassword', 'regPasswordErr', 'Password must be at least 6 characters long');
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  // Check for existing users
+  let users = [];
+  try { users = JSON.parse(localStorage.getItem('ei_users') || '[]'); } catch(err) {}
+
+  if (users.find(u => u.email === email)) {
+    const err = document.getElementById('regGeneralErr');
+    err.textContent = '⚠️ This email is already registered. Please login instead.';
+    err.classList.add('show');
+    return;
+  }
+  if (users.find(u => u.mobile === mobile)) {
+    showFieldError('regMobile', 'regMobileErr', 'This mobile number is already registered');
+    return;
+  }
+
+  // Save new user (store hashed password in real app — here we store for demo)
+  const newUser = { name, email, mobile, password };
+  users.push(newUser);
+  localStorage.setItem('ei_users', JSON.stringify(users));
+
+  toast(`Account created successfully! Welcome, ${name}! 🎉`);
+
+  // Clear register form fields
+  document.getElementById('registerForm').reset();
+  document.getElementById('strengthBar').style.width = '0';
+  document.getElementById('strengthText').textContent = '';
+
+  // *** Redirect to Login tab after short delay ***
+  setTimeout(() => {
+    switchTab('login');
+    // Pre-fill login email for convenience
+    document.getElementById('loginEmail').value = email;
+    toast('Please login with your new account 🔑', 'info');
+  }, 1000);
+}
+
+// ============================================================
+// ===== FEATURE 2: LOGIN PROCESS =====
+// Login with email OR mobile + password validation
+// ============================================================
+function doLogin(e) {
+  e.preventDefault();
+  clearFormErrors('loginForm');
+
+  const credential = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  if (!credential) {
+    showFieldError('loginEmail', 'loginEmailErr', 'Please enter your email or mobile number');
+    return;
+  }
+  if (!password) {
+    showFieldError('loginPassword', 'loginPasswordErr', 'Please enter your password');
+    return;
+  }
+
+  let users = [];
+  try { users = JSON.parse(localStorage.getItem('ei_users') || '[]'); } catch(err) {}
+
+  // Find user by email OR mobile number
+  const user = users.find(u =>
+    u.email === credential ||
+    u.mobile === credential ||
+    u.mobile === credential.replace(/\s/g,'').replace('+91','')
+  );
+
+  if (!user) {
+    const genErr = document.getElementById('loginGeneralErr');
+    genErr.textContent = '⚠️ No account found with this email or mobile. Please register first.';
+    genErr.classList.add('show');
+    document.getElementById('loginEmail').classList.add('error');
+    return;
+  }
+
+  // Check password
+  if (user.password !== password) {
+    showFieldError('loginPassword', 'loginPasswordErr', 'Incorrect password. Please try again.');
+    return;
+  }
+
+  // Success — log in
+  authState = { isLoggedIn: true, user: { name: user.name, email: user.email, mobile: user.mobile } };
+  save();
+  updateLoginLabel();
+  toggleAuthModal(false);
+  toast(`Welcome back, ${user.name}! 👋`);
+}
+
+// ============================================================
+// AUTH HELPERS
 // ============================================================
 function updateLoginLabel() {
-  document.getElementById('loginLabel').textContent = authState.isLoggedIn ? authState.user.name.split(' ')[0] : 'Login';
+  document.getElementById('loginLabel').textContent = authState.isLoggedIn
+    ? authState.user.name.split(' ')[0]
+    : 'Login';
 }
+
 function toggleAuthModal(show) {
-  if(show && authState.isLoggedIn) {
-    if(confirm(`Logged in as ${authState.user.name}. Logout?`)) {
-      authState = {isLoggedIn:false,user:null};
+  if (show && authState.isLoggedIn) {
+    if (confirm(`Logged in as ${authState.user.name}.\nDo you want to logout?`)) {
+      authState = { isLoggedIn: false, user: null };
       save();
       updateLoginLabel();
       toast('Logged out successfully');
@@ -1040,41 +1531,25 @@ function toggleAuthModal(show) {
     return;
   }
   document.getElementById('authOverlay').classList.toggle('open', show);
-  if(show) document.body.style.overflow='hidden';
-  else document.body.style.overflow='';
+  if (show) {
+    document.body.style.overflow = 'hidden';
+    // Clear previous errors when opening
+    clearFormErrors('loginForm');
+    clearFormErrors('registerForm');
+    document.getElementById('loginGeneralErr').classList.remove('show');
+    document.getElementById('regGeneralErr').classList.remove('show');
+  } else {
+    document.body.style.overflow = '';
+  }
 }
+
 function switchTab(tab) {
-  const isLogin = tab==='login';
+  const isLogin = tab === 'login';
   document.getElementById('tabLogin').classList.toggle('active', isLogin);
   document.getElementById('tabRegister').classList.toggle('active', !isLogin);
   document.getElementById('loginForm').classList.toggle('active', isLogin);
   document.getElementById('registerForm').classList.toggle('active', !isLogin);
-}
-function doLogin(e) {
-  e.preventDefault();
-  const email = document.getElementById('loginEmail').value;
-  const users = JSON.parse(localStorage.getItem('ei_users') || '[]');
-  const user = users.find(u => u.email === email || u.mobile === email);
-  if(!user) { toast('User not found. Please register.', 'error'); return; }
-  authState = {isLoggedIn:true, user};
-  save(); updateLoginLabel();
-  toggleAuthModal(false);
-  toast(`Welcome back, ${user.name}! 👋`);
-}
-function doRegister(e) {
-  e.preventDefault();
-  const name = document.getElementById('regName').value;
-  const email = document.getElementById('regEmail').value;
-  const mobile = document.getElementById('regMobile').value;
-  const users = JSON.parse(localStorage.getItem('ei_users') || '[]');
-  if(users.find(u => u.email===email)) { toast('Email already registered.', 'error'); return; }
-  const newUser = {name, email, mobile};
-  users.push(newUser);
-  localStorage.setItem('ei_users', JSON.stringify(users));
-  authState = {isLoggedIn:true, user:newUser};
-  save(); updateLoginLabel();
-  toggleAuthModal(false);
-  toast(`Account created! Welcome, ${name}! 🎉`);
+  document.getElementById('authTitle').textContent = isLogin ? 'Login to ElectroIndia' : 'Create Account';
 }
 
 // ============================================================
@@ -1082,51 +1557,51 @@ function doRegister(e) {
 // ============================================================
 function saveCart() { save(); updateCartBadge(); }
 function updateCartBadge() {
-  const count = cart.reduce((s,i)=>s+i.qty, 0);
+  const count = cart.reduce((s,i) => s + i.qty, 0);
   document.getElementById('cartBadge').textContent = count;
   document.getElementById('detailCartCount').textContent = `Cart (${count})`;
 }
 function addToCart(id, show=true) {
-  if(!authState.isLoggedIn) {
+  if (!authState.isLoggedIn) {
     toast('Please login to add items to cart', 'error');
-    setTimeout(()=>toggleAuthModal(true), 800);
+    setTimeout(() => toggleAuthModal(true), 800);
     return false;
   }
-  const p = PRODUCTS.find(x=>x.id===id);
-  if(!p) return false;
-  const ex = cart.find(i=>i.id===id);
-  if(ex) ex.qty++;
-  else cart.push({...p, qty:1});
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return false;
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty++;
+  else cart.push({...p, qty: 1});
   saveCart();
-  if(show) toast(`${p.name} added to cart! 🛒`);
+  if (show) toast(`${p.name} added to cart! 🛒`);
   return true;
 }
 function removeFromCart(id) {
-  cart = cart.filter(i=>i.id!==id);
+  cart = cart.filter(i => i.id !== id);
   saveCart(); renderCart();
 }
 function updateQty(id, delta) {
-  const item = cart.find(i=>i.id===id);
-  if(!item) return;
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
   item.qty = Math.max(0, item.qty + delta);
-  if(item.qty===0) cart = cart.filter(i=>i.id!==id);
+  if (item.qty === 0) cart = cart.filter(i => i.id !== id);
   saveCart(); renderCart();
 }
 function toggleCart(show) {
   document.getElementById('cartOverlay').classList.toggle('open', show);
-  if(show) renderCart();
+  if (show) renderCart();
 }
 function renderCart() {
   const container = document.getElementById('cartItemsContainer');
   const footer = document.getElementById('cartFooter');
-  if(!cart.length) {
+  if (!cart.length) {
     container.innerHTML = `<div class="empty-cart"><div class="empty-cart-icon">🛒</div><h4>Your cart is empty</h4><p>Add some amazing products to get started!</p></div>`;
     footer.innerHTML = '';
     return;
   }
   container.innerHTML = cart.map(item => `
     <div class="cart-item">
-      <img src="${item.img}" class="cart-img" alt="${item.name}" onerror="this.src='https://via.placeholder.com/72x72?text=Product'">
+      <img src="${item.img}" class="cart-img" alt="${item.name}" onerror="this.src='https://placehold.co/72x72/f9f9f9/878787?text=Product'">
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-price">${fmt(item.price)}</div>
@@ -1138,75 +1613,221 @@ function renderCart() {
         <button class="btn-remove" onclick="removeFromCart(${item.id})">Remove</button>
       </div>
     </div>`).join('');
-  const sub = cart.reduce((s,i)=>s+i.price*i.qty, 0);
-  const mrpTotal = cart.reduce((s,i)=>s+(i.mrp||i.price)*i.qty, 0);
+
+  const sub = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const mrpTotal = cart.reduce((s,i) => s + (i.mrp || i.price) * i.qty, 0);
   const saving = mrpTotal - sub;
   const gst = sub * 0.18;
   const total = sub + gst;
   footer.innerHTML = `
     <div class="cart-summary-row"><span>Price (${cart.reduce((s,i)=>s+i.qty,0)} items)</span><span>${fmt(sub)}</span></div>
     <div class="cart-summary-row"><span>GST (18%)</span><span>${fmt(gst)}</span></div>
-    ${saving>0?`<div class="cart-summary-row" style="color:var(--green)"><span>Discount</span><span>-${fmt(saving)}</span></div>`:''}
+    ${saving > 0 ? `<div class="cart-summary-row" style="color:var(--green)"><span>Discount</span><span>-${fmt(saving)}</span></div>` : ''}
     <div class="cart-summary-row"><span>Delivery</span><span style="color:var(--green);font-weight:700">FREE</span></div>
     <div class="cart-summary-row total"><span>Total</span><span>${fmt(total)}</span></div>
-    ${saving>0?`<div class="cart-savings">🎉 You're saving ${fmt(saving)} on this order!</div>`:''}
+    ${saving > 0 ? `<div class="cart-savings">🎉 You're saving ${fmt(saving)} on this order!</div>` : ''}
     <button class="btn-checkout-main" onclick="openCheckout()">PROCEED TO CHECKOUT →</button>`;
 }
 
 // ============================================================
-// PRODUCT RENDERING
+// ===== FEATURE 3: SEARCH PROCESS =====
+// Search by product name, category name, brand
+// ============================================================
+function performSearch() {
+  const query = document.getElementById('searchInput').value.trim();
+  state.search = query;
+
+  if (query) {
+    // Also auto-set category to 'All' when searching across all
+    // so results from all categories are shown
+    state.category = 'All';
+    renderNavCategories();
+    renderSidebarCategories();
+  }
+
+  renderProducts();
+  renderActiveFilters();
+  scrollToProducts();
+}
+
+// ============================================================
+// ===== FEATURE 4: CATEGORIES PROCESS =====
+// Filter by category — only matching products displayed
+// ============================================================
+function setCategory(cat) {
+  state.category = cat;
+  // Clear search when switching category so category filter works cleanly
+  if (cat !== 'All') {
+    state.search = '';
+    document.getElementById('searchInput').value = '';
+  }
+  renderNavCategories();
+  renderSidebarCategories();
+  renderProducts();
+  renderActiveFilters();
+  scrollToProducts();
+}
+
+// ============================================================
+// ===== FEATURE 5: SORT BY PROCESS =====
+// Sort: Relevance, Price Low/High, Top Rated, Newest
+// ============================================================
+function handleSort(val) {
+  state.sortBy = val;
+  renderProducts();
+}
+
+// ============================================================
+// ===== FEATURE 6: PRICE RANGE FILTER =====
+// Filter products by min/max price
+// ============================================================
+function applyPriceFilter() {
+  const min = parseFloat(document.getElementById('priceMin').value) || 0;
+  const max = parseFloat(document.getElementById('priceMax').value);
+  state.minPrice = min;
+  state.maxPrice = (!isNaN(max) && max > 0) ? max : Infinity;
+  renderProducts();
+  renderActiveFilters();
+  const maxLabel = state.maxPrice === Infinity ? 'Any' : fmt(state.maxPrice);
+  toast(`Price filter: ${fmt(state.minPrice)} – ${maxLabel}`);
+}
+
+// ============================================================
+// ===== FEATURE 7: CUSTOMER RATING FILTER =====
+// Filter by minimum star rating
+// ============================================================
+function applyRatingFilter(r) {
+  state.minRating = Number(r);
+  renderProducts();
+  renderActiveFilters();
+}
+
+function clearAllFilters() {
+  state.minPrice = 0;
+  state.maxPrice = Infinity;
+  state.minRating = 0;
+  state.sortBy = 'default';
+  document.getElementById('priceMin').value = '';
+  document.getElementById('priceMax').value = '';
+  document.getElementById('sortSelect').value = 'default';
+  // Reset rating radio
+  document.querySelectorAll('input[name="rating"]').forEach(r => { r.checked = r.value === '0'; });
+  renderProducts();
+  renderActiveFilters();
+  toast('All filters cleared');
+}
+
+// Show active filter chips
+function renderActiveFilters() {
+  const container = document.getElementById('activeFilters');
+  const chips = [];
+  if (state.search) chips.push({label:`Search: "${state.search}"`, remove: () => { state.search=''; document.getElementById('searchInput').value=''; renderProducts(); renderActiveFilters(); }});
+  if (state.category !== 'All') chips.push({label:`Category: ${state.category}`, remove: () => setCategory('All')});
+  if (state.minPrice > 0 || state.maxPrice !== Infinity) {
+    const maxLabel = state.maxPrice === Infinity ? '∞' : fmt(state.maxPrice);
+    chips.push({label:`Price: ${fmt(state.minPrice)}–${maxLabel}`, remove: () => { state.minPrice=0; state.maxPrice=Infinity; document.getElementById('priceMin').value=''; document.getElementById('priceMax').value=''; renderProducts(); renderActiveFilters(); }});
+  }
+  if (state.minRating > 0) chips.push({label:`Rating: ${state.minRating}★+`, remove: () => { state.minRating=0; document.querySelectorAll('input[name="rating"]').forEach(r=>r.checked=r.value==='0'); renderProducts(); renderActiveFilters(); }});
+
+  container.innerHTML = chips.map((c,i) => `
+    <span class="filter-chip">
+      ${c.label}
+      <span class="filter-chip-remove" onclick="removeFilterChip(${i})">✕</span>
+    </span>`).join('');
+  window._filterChipRemovers = chips.map(c => c.remove);
+}
+
+function removeFilterChip(i) {
+  if (window._filterChipRemovers && window._filterChipRemovers[i]) {
+    window._filterChipRemovers[i]();
+  }
+}
+
+// ============================================================
+// PRODUCT RENDERING (core filter engine)
 // ============================================================
 function getFiltered() {
   let result = PRODUCTS.filter(p => {
-    if(state.category !== 'All' && p.category !== state.category) return false;
-    if(state.search) {
+    // ===== FEATURE 4: Category filter =====
+    if (state.category !== 'All' && p.category !== state.category) return false;
+
+    // ===== FEATURE 3: Search filter — by name, category, brand, desc =====
+    if (state.search) {
       const q = state.search.toLowerCase();
-      if(!p.name.toLowerCase().includes(q) && !p.category.toLowerCase().includes(q) && !p.brand.toLowerCase().includes(q) && !p.desc.toLowerCase().includes(q)) return false;
+      const matchName = p.name.toLowerCase().includes(q);
+      const matchCat  = p.category.toLowerCase().includes(q);
+      const matchBrand = p.brand.toLowerCase().includes(q);
+      const matchDesc = p.desc.toLowerCase().includes(q);
+      if (!matchName && !matchCat && !matchBrand && !matchDesc) return false;
     }
-    if(p.price < state.minPrice || p.price > state.maxPrice) return false;
-    if(p.rating < state.minRating) return false;
+
+    // ===== FEATURE 6: Price filter =====
+    if (p.price < state.minPrice) return false;
+    if (state.maxPrice !== Infinity && p.price > state.maxPrice) return false;
+
+    // ===== FEATURE 7: Rating filter =====
+    if (p.rating < state.minRating) return false;
+
     return true;
   });
+
+  // ===== FEATURE 5: Sort =====
   const sortMap = {
-    priceLow: (a,b)=>a.price-b.price,
-    priceHigh: (a,b)=>b.price-a.price,
-    rating: (a,b)=>b.rating-a.rating,
-    newest: (a,b)=>b.id-a.id,
-    default: (a,b)=>a.id-b.id
+    priceLow:  (a,b) => a.price - b.price,
+    priceHigh: (a,b) => b.price - a.price,
+    rating:    (a,b) => b.rating - a.rating,
+    newest:    (a,b) => b.id - a.id,
+    default:   (a,b) => a.id - b.id
   };
   return result.sort(sortMap[state.sortBy] || sortMap.default);
 }
+
 function renderProducts() {
   const filtered = getFiltered();
   const grid = document.getElementById('productGrid');
   const info = document.getElementById('resultsInfo');
-  const count = document.getElementById('resultsCount');
-  info.textContent = state.category === 'All' && !state.search ? 'All Products' : `"${state.category !== 'All' ? state.category : state.search}" — ${filtered.length} product${filtered.length!==1?'s':''}`;
-  count.textContent = '';
-  if(!filtered.length) {
-    grid.innerHTML = `<div class="no-results"><h3>No products found 😔</h3><p>Try adjusting your filters or search terms.</p></div>`;
+
+  let infoText = 'All Products';
+  if (state.search) {
+    infoText = `Search: "${state.search}" — ${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
+  } else if (state.category !== 'All') {
+    infoText = `${state.category} — ${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
+  } else {
+    infoText = `All Products (${filtered.length})`;
+  }
+  info.textContent = infoText;
+
+  if (!filtered.length) {
+    grid.innerHTML = `
+      <div class="no-results">
+        <div style="font-size:3rem;margin-bottom:12px">🔍</div>
+        <h3>No products found</h3>
+        <p>Try adjusting your search or filter settings.</p>
+        <button onclick="clearAllFilters()" style="margin-top:16px;padding:10px 24px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-weight:700;cursor:pointer">Clear All Filters</button>
+      </div>`;
     return;
   }
+
   grid.innerHTML = filtered.map(p => {
-    const d = disc(p.price, p.mrp||p.price);
+    const d = disc(p.price, p.mrp || p.price);
     const badgeHtml = p.badge ? `<span class="card-badge ${p.badge==='HOT'?'hot':p.badge==='NEW'?'new':''}">${p.badge}</span>` : '';
     return `
       <div class="product-card" onclick="openDetail(${p.id})">
         <div class="card-img-wrap">
           ${badgeHtml}
-          <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x160?text=Product'">
+          <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/200x160/f9f9f9/878787?text=Product'">
           <span class="card-wishlist" onclick="event.stopPropagation(); wishlistToggle(this, ${p.id})">🤍</span>
         </div>
         <div class="card-body">
           <div class="card-brand">${p.brand}</div>
           <div class="card-name">${p.name}</div>
           <div class="card-rating-wrap">
-            <span class="rating-pill ${p.rating<3.5?'low':''}">${p.rating} ★</span>
+            <span class="rating-pill ${p.rating < 3.5 ? 'low' : ''}">${p.rating} ★</span>
             <span class="rating-count">${(p.reviews/1000).toFixed(1)}K Ratings</span>
           </div>
           <div class="card-price-wrap">
             <span class="card-price">${fmt(p.price)}</span>
-            ${p.mrp&&p.mrp>p.price?`<span class="card-mrp">${fmt(p.mrp)}</span><span class="card-discount">${d}% off</span>`:''}
+            ${p.mrp && p.mrp > p.price ? `<span class="card-mrp">${fmt(p.mrp)}</span><span class="card-discount">${d}% off</span>` : ''}
           </div>
           <div class="card-desc">${p.desc}</div>
         </div>
@@ -1217,164 +1838,218 @@ function renderProducts() {
       </div>`;
   }).join('');
 }
+
 function renderNavCategories() {
   document.getElementById('navCategories').innerHTML = CATEGORIES.map(c =>
-    `<div class="nav-item ${state.category===c.name?'active':''}" onclick="setCategory('${c.name}')">${c.icon} ${c.name}</div>`
+    `<div class="nav-item ${state.category === c.name ? 'active' : ''}" onclick="setCategory('${c.name}')">${c.icon} ${c.name}</div>`
   ).join('');
 }
+
 function renderSidebarCategories() {
   document.getElementById('catListSidebar').innerHTML = CATEGORIES.map(c => {
-    const count = c.name==='All' ? PRODUCTS.length : PRODUCTS.filter(p=>p.category===c.name).length;
-    return `<div class="cat-item ${state.category===c.name?'active':''}" onclick="setCategory('${c.name}')">
+    const count = c.name === 'All' ? PRODUCTS.length : PRODUCTS.filter(p => p.category === c.name).length;
+    return `<div class="cat-item ${state.category === c.name ? 'active' : ''}" onclick="setCategory('${c.name}')">
       <span class="cat-icon">${c.icon}</span><span>${c.name}</span><span class="cat-count">${count}</span>
     </div>`;
   }).join('');
 }
-function setCategory(cat) {
-  state.category = cat;
-  renderNavCategories(); renderSidebarCategories(); renderProducts();
-  scrollToProducts();
+
+function scrollToProducts() {
+  document.getElementById('mainWrap').scrollIntoView({behavior:'smooth', block:'start'});
 }
-function handleSort(val) { state.sortBy = val; renderProducts(); }
-function applyPriceFilter() {
-  const min = parseFloat(document.getElementById('priceMin').value) || 0;
-  const max = parseFloat(document.getElementById('priceMax').value) || Infinity;
-  state.minPrice = min; state.maxPrice = max;
-  renderProducts();
-  toast(`Price filter applied: ${fmt(min)} – ${max===Infinity?'Any':fmt(max)}`);
-}
-function applyRatingFilter(r) { state.minRating = r; renderProducts(); }
-function performSearch() {
-  state.search = document.getElementById('searchInput').value.trim();
-  renderProducts(); scrollToProducts();
-}
-function scrollToProducts() { document.getElementById('mainWrap').scrollIntoView({behavior:'smooth', block:'start'}); }
+
 function wishlistToggle(el, id) {
-  const p = PRODUCTS.find(x=>x.id===id);
-  if(!authState.isLoggedIn) { toast('Login to save wishlist', 'error'); return; }
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!authState.isLoggedIn) { toast('Login to save to wishlist', 'error'); return; }
   el.classList.toggle('active');
   el.textContent = el.classList.contains('active') ? '❤️' : '🤍';
-  if(el.classList.contains('active')) toast(`${p.name} added to wishlist ❤️`);
+  if (el.classList.contains('active')) toast(`${p.name} added to wishlist ❤️`);
 }
 
 // ============================================================
-// PRODUCT DETAIL
+// ===== FEATURE 8: PRODUCT VIEW PAGE =====
+// Full detail page with specs, image, add to cart, buy now
 // ============================================================
 function openDetail(id) {
-  const p = PRODUCTS.find(x=>x.id===id);
-  if(!p) return;
-  const d = disc(p.price, p.mrp||p.price);
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+
+  const d = disc(p.price, p.mrp || p.price);
+
+  // Breadcrumb
   document.getElementById('detailBreadCat').textContent = p.category;
   document.getElementById('detailBreadName').textContent = p.name;
-  document.getElementById('detailMainImg').src = p.img;
+
+  // Main image
+  const mainImg = document.getElementById('detailMainImg');
+  mainImg.src = p.img;
+  mainImg.alt = p.name;
+
+  // Thumbnails — show main + category-related alternates
+  const relatedImgs = PRODUCTS.filter(x => x.category === p.category && x.id !== id).slice(0, 3).map(x => x.img);
+  const allImgs = [p.img, ...relatedImgs].slice(0, 4);
+  document.getElementById('detailThumbs').innerHTML = allImgs.map((src, i) =>
+    `<img src="${src}" class="thumb ${i===0?'active':''}" onclick="switchDetailImg(this, '${src}')" onerror="this.style.display='none'">`
+  ).join('');
+
+  // Info
   document.getElementById('detailBrand').textContent = p.brand;
   document.getElementById('detailName').textContent = p.name;
   document.getElementById('detailRating').textContent = `⭐ ${p.rating}`;
   document.getElementById('detailReviews').textContent = `${p.reviews.toLocaleString()} Ratings`;
   document.getElementById('detailPrice').textContent = fmt(p.price);
-  document.getElementById('detailMrp').textContent = p.mrp&&p.mrp>p.price ? fmt(p.mrp) : '';
-  document.getElementById('detailDisc').textContent = d>0 ? `${d}% off` : '';
-  document.getElementById('detailEmi').textContent = `EMI from ${fmt(Math.round(p.price/24))}/month`;
-  document.getElementById('detailDesc').textContent = p.desc + ' Experience premium performance with ElectroIndia\'s quality guarantee and 1-year warranty.';
+  document.getElementById('detailMrp').textContent = p.mrp && p.mrp > p.price ? fmt(p.mrp) : '';
+  document.getElementById('detailDisc').textContent = d > 0 ? `${d}% off` : '';
+  document.getElementById('detailEmi').textContent = `No Cost EMI from ${fmt(Math.round(p.price / 12))}/month`;
+  document.getElementById('detailDesc').textContent = p.desc + ' Experience premium performance backed by ElectroIndia\'s quality guarantee and 1-year manufacturer warranty.';
+
   // Specs
-  document.getElementById('detailSpecs').innerHTML = p.specs ? Object.entries(p.specs).map(([k,v])=>
-    `<div class="spec-item"><span class="spec-key">${k}</span><span class="spec-val">${v}</span></div>`
-  ).join('') : '';
-  // Thumbs (simulated)
-  document.getElementById('detailThumbs').innerHTML = `<img src="${p.img}" class="thumb active" onclick="document.getElementById('detailMainImg').src=this.src">`;
-  // Buttons
-  document.getElementById('detailAddCartBtn').onclick = () => addToCart(id);
-  document.getElementById('detailBuyNowBtn').onclick = () => {
-    if(!authState.isLoggedIn) { toast('Login required', 'error'); setTimeout(()=>toggleAuthModal(true),800); return; }
-    checkoutCart = [{...p, qty:1}];
-    closeDetail(); openCheckout(false);
+  document.getElementById('detailSpecs').innerHTML = p.specs
+    ? Object.entries(p.specs).map(([k,v]) =>
+        `<div class="spec-item"><span class="spec-key">${k}</span><span class="spec-val">${v}</span></div>`
+      ).join('')
+    : '<div style="color:var(--text-2);font-size:0.85rem">Specifications not available</div>';
+
+  // === ADD TO CART button ===
+  document.getElementById('detailAddCartBtn').onclick = () => {
+    if (addToCart(id)) {
+      // Visual feedback
+      const btn = document.getElementById('detailAddCartBtn');
+      btn.textContent = '✓ Added to Cart!';
+      btn.style.background = 'var(--green)';
+      setTimeout(() => {
+        btn.textContent = '🛒 ADD TO CART';
+        btn.style.background = '';
+      }, 1500);
+    }
   };
-  // Related
-  const related = PRODUCTS.filter(x=>x.category===p.category&&x.id!==id).slice(0,8);
-  document.getElementById('relatedProducts').innerHTML = related.map(r=>
-    `<div class="related-card" onclick="openDetail(${r.id})">
-      <img src="${r.img}" class="related-img" onerror="this.src='https://via.placeholder.com/160x120?text=Product'">
+
+  // === BUY NOW button — direct checkout ===
+  document.getElementById('detailBuyBtn').onclick = () => {
+    if (!authState.isLoggedIn) {
+      toast('Please login to buy', 'error');
+      setTimeout(() => toggleAuthModal(true), 800);
+      return;
+    }
+    checkoutCart = [{...p, qty: 1}];
+    closeDetail();
+    setTimeout(() => openCheckout(false), 300);
+  };
+
+  // Related products (same category, exclude current)
+  const related = PRODUCTS.filter(x => x.category === p.category && x.id !== id).slice(0, 8);
+  document.getElementById('relatedProducts').innerHTML = related.map(r => `
+    <div class="related-card" onclick="openDetail(${r.id})">
+      <img src="${r.img}" class="related-img" onerror="this.src='https://placehold.co/160x120/f9f9f9/878787?text=Product'">
       <div class="related-info">
         <div class="related-name">${r.name}</div>
         <div class="related-price">${fmt(r.price)}</div>
+        ${r.mrp && r.mrp > r.price ? `<div style="font-size:0.72rem;color:var(--green);font-weight:700">${disc(r.price,r.mrp)}% off</div>` : ''}
       </div>
-    </div>`
-  ).join('');
+    </div>`).join('');
+
   document.getElementById('detailOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
+function switchDetailImg(thumb, src) {
+  document.getElementById('detailMainImg').src = src;
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+
 function closeDetail() {
   document.getElementById('detailOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
 function closeAllViews() {
-  closeDetail(); closeTracking(); closeMyOrders();
+  closeDetail();
+  closeTracking();
+  closeMyOrders();
   document.getElementById('checkoutOverlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ============================================================
 // CHECKOUT
 // ============================================================
-function openCheckout(fromCart=true) {
-  if(!authState.isLoggedIn) { toast('Please login first', 'error'); return; }
-  if(fromCart) {
-    if(!cart.length) { toast('Cart is empty', 'error'); return; }
+function openCheckout(fromCart = true) {
+  if (!authState.isLoggedIn) { toast('Please login first', 'error'); return; }
+  if (fromCart) {
+    if (!cart.length) { toast('Cart is empty', 'error'); return; }
     checkoutCart = [...cart];
   }
   toggleCart(false);
   document.getElementById('checkoutUserName').textContent = authState.user?.name || 'Guest';
+  document.getElementById('checkoutUserPhone').textContent = authState.user?.mobile ? `+91 ${authState.user.mobile}` : '+91 91235 94031';
+  // Reset payment selection
+  selectedPayment = 'cod';
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('selected'));
+  document.querySelector('.pay-opt').classList.add('selected');
+  document.querySelector('.pay-opt input').checked = true;
+
   renderCheckoutItems();
   document.getElementById('checkoutOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
 function renderCheckoutItems() {
   const list = document.getElementById('checkoutItemsList');
-  list.innerHTML = checkoutCart.map(item=>`
+  list.innerHTML = checkoutCart.map(item => `
     <div class="checkout-item">
-      <img src="${item.img}" class="checkout-item-img" onerror="this.src='https://via.placeholder.com/56x56?text=Product'">
+      <img src="${item.img}" class="checkout-item-img" onerror="this.src='https://placehold.co/56x56/f9f9f9/878787?text=Product'">
       <span class="checkout-item-name">${item.name} × ${item.qty}</span>
-      <span class="checkout-item-price">${fmt(item.price*item.qty)}</span>
+      <span class="checkout-item-price">${fmt(item.price * item.qty)}</span>
     </div>`).join('');
-  const qty = checkoutCart.reduce((s,i)=>s+i.qty,0);
-  const sub = checkoutCart.reduce((s,i)=>s+i.price*i.qty,0);
-  const mrpTotal = checkoutCart.reduce((s,i)=>s+(i.mrp||i.price)*i.qty,0);
+
+  const qty = checkoutCart.reduce((s,i) => s + i.qty, 0);
+  const sub = checkoutCart.reduce((s,i) => s + i.price * i.qty, 0);
+  const mrpTotal = checkoutCart.reduce((s,i) => s + (i.mrp || i.price) * i.qty, 0);
   const saving = mrpTotal - sub;
   const gst = sub * 0.18;
   const total = sub + gst;
+
   document.getElementById('checkoutQty').textContent = qty;
   document.getElementById('checkoutSubtotal').textContent = fmt(sub);
-  document.getElementById('checkoutDiscount').textContent = saving>0 ? `-${fmt(saving)}` : '₹0';
+  document.getElementById('checkoutDiscount').textContent = saving > 0 ? `-${fmt(saving)}` : '₹0';
   document.getElementById('checkoutTotal').textContent = fmt(total);
-  document.getElementById('savingsNote').textContent = saving>0 ? `🎉 Saving ${fmt(saving)} on this order!` : '';
+  document.getElementById('savingsNote').textContent = saving > 0 ? `🎉 You save ${fmt(saving)} on this order!` : '';
   document.getElementById('upiAmount').textContent = fmt(total);
 }
+
 function closeCheckout() {
   document.getElementById('checkoutOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
 function selectPayment(el, method) {
   selectedPayment = method;
-  document.querySelectorAll('.pay-opt').forEach(o=>o.classList.remove('selected'));
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   el.querySelector('input').checked = true;
 }
+
 function placeOrder() {
-  const btn = document.getElementById('placeOrderBtn');
-  if(selectedPayment === 'upi') {
+  if (selectedPayment === 'upi') {
     document.getElementById('upiOverlay').classList.add('open');
     return;
   }
-  btn.disabled = true; btn.textContent = 'Processing...';
+  const btn = document.getElementById('placeOrderBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Processing...';
   setTimeout(() => {
     btn.disabled = false;
     btn.textContent = 'PLACE ORDER SECURELY 🔒';
     finalizeOrder();
   }, 1500);
 }
+
 function confirmUpiPayment() {
   document.getElementById('upiOverlay').classList.remove('open');
   finalizeOrder();
 }
+
 function finalizeOrder() {
   const orderId = genOrderId();
   lastOrderId = orderId;
@@ -1384,7 +2059,7 @@ function finalizeOrder() {
     date: new Date().toISOString(),
     status: 'placed',
     payment: selectedPayment,
-    total: checkoutCart.reduce((s,i)=>s+i.price*i.qty,0) * 1.18,
+    total: checkoutCart.reduce((s,i) => s + i.price * i.qty, 0) * 1.18,
     estimatedDelivery: estDate(),
     mobile: authState.user?.mobile || '9123594031'
   };
@@ -1398,82 +2073,99 @@ function finalizeOrder() {
   document.getElementById('successDelivery').textContent = `📅 Estimated Delivery: ${orderData.estimatedDelivery}`;
   document.getElementById('successOverlay').classList.add('open');
 }
+
 function trackSuccessOrder() {
   document.getElementById('successOverlay').classList.remove('open');
   openTracking(lastOrderId);
 }
+
 function closeSuccess() {
   document.getElementById('successOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  renderProducts();
 }
 
 // ============================================================
 // ORDER TRACKING
 // ============================================================
 const TRACKING_STAGES = [
-  {key:'placed', icon:'📋', title:'Order Placed', desc:'Your order has been received'},
-  {key:'confirmed', icon:'✅', title:'Payment Confirmed', desc:'Payment verified successfully'},
-  {key:'packed', icon:'📦', title:'Packed', desc:'Your order is packed and ready to ship'},
-  {key:'shipped', icon:'🚚', title:'Shipped', desc:'Your order is on its way'},
-  {key:'out', icon:'🛵', title:'Out for Delivery', desc:'Delivery partner is heading your way'},
-  {key:'delivered', icon:'🏠', title:'Delivered', desc:'Your order has been delivered'},
+  {key:'placed',    icon:'📋', title:'Order Placed',       desc:'Your order has been received'},
+  {key:'confirmed', icon:'✅', title:'Payment Confirmed',  desc:'Payment verified successfully'},
+  {key:'packed',    icon:'📦', title:'Packed',             desc:'Your order is packed and ready to ship'},
+  {key:'shipped',   icon:'🚚', title:'Shipped',            desc:'Your order is on its way'},
+  {key:'out',       icon:'🛵', title:'Out for Delivery',   desc:'Delivery partner is heading your way'},
+  {key:'delivered', icon:'🏠', title:'Delivered',          desc:'Your order has been delivered'},
 ];
+
 function openTracking(orderId='') {
   document.getElementById('trackingOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  if(orderId) {
+  if (orderId) {
     document.getElementById('trackOrderId').value = orderId;
     searchTracking();
   } else {
     document.getElementById('trackingResult').innerHTML = '';
   }
 }
+
 function closeTracking() {
   document.getElementById('trackingOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
 function searchTracking() {
   const oid = document.getElementById('trackOrderId').value.trim().toUpperCase();
   const mob = document.getElementById('trackMobile').value.trim();
   let order = null;
-  if(oid) order = orders.find(o => o.id === oid);
-  else if(mob) order = orders.find(o => o.mobile === mob);
+  if (oid) order = orders.find(o => o.id === oid);
+  else if (mob) order = orders.find(o => o.mobile === mob);
+
   const result = document.getElementById('trackingResult');
-  if(!order) {
-    if(!oid && !mob) { result.innerHTML = '<div style="background:#fff;padding:24px;border-radius:8px;text-align:center;color:var(--text-2)">Enter Order ID or mobile number to track</div>'; return; }
-    result.innerHTML = `<div style="background:#fff;padding:32px;border-radius:8px;text-align:center"><div style="font-size:3rem;margin-bottom:12px">😕</div><h4>Order not found</h4><p style="color:var(--text-2);margin-top:8px">Check your Order ID or try logging in to view your orders.</p></div>`;
+  if (!order) {
+    if (!oid && !mob) {
+      result.innerHTML = '<div style="background:#fff;padding:24px;border-radius:8px;text-align:center;color:var(--text-2)">Enter your Order ID or mobile number to track your order.</div>';
+      return;
+    }
+    result.innerHTML = `<div style="background:#fff;padding:32px;border-radius:8px;text-align:center">
+      <div style="font-size:3rem;margin-bottom:12px">😕</div>
+      <h4 style="margin-bottom:8px">Order not found</h4>
+      <p style="color:var(--text-2)">Check your Order ID or try viewing My Orders after logging in.</p>
+    </div>`;
     return;
   }
   renderTrackingCard(order, result);
 }
+
 function getOrderStageIndex(status) {
   const map = {placed:0, confirmed:1, packed:2, shipped:3, out:4, delivered:5};
   return map[status] ?? 0;
 }
+
 function simulateNextStatus(order) {
   const stages = ['placed','confirmed','packed','shipped','out','delivered'];
   const idx = stages.indexOf(order.status);
-  if(idx < stages.length - 1) return stages[idx + 1];
-  return order.status;
+  return idx < stages.length - 1 ? stages[idx + 1] : order.status;
 }
+
 function renderTrackingCard(order, container) {
   const stageIdx = getOrderStageIndex(order.status);
   const stagesHtml = TRACKING_STAGES.map((s, i) => {
     const done = i < stageIdx;
     const current = i === stageIdx;
-    const future = i > stageIdx;
-    const date = done || current ? new Date(new Date(order.date).getTime() + i*8*3600*1000).toLocaleString('en-IN', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
+    const date = (done || current)
+      ? new Date(new Date(order.date).getTime() + i * 8 * 3600 * 1000)
+          .toLocaleString('en-IN', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})
+      : '';
     return `<div class="timeline-step ${done?'done':''} ${current?'current':''}">
-      <div class="tl-icon">${done?'✅':current?s.icon:s.icon}</div>
+      <div class="tl-icon">${done ? '✅' : s.icon}</div>
       <div class="tl-content">
         <div class="tl-title">${s.title}</div>
-        ${date?`<div class="tl-date">${date}</div>`:''}
+        ${date ? `<div class="tl-date">${date}</div>` : ''}
         <div class="tl-desc">${s.desc}</div>
       </div>
     </div>`;
   }).join('');
-  const statusBadgeClass = {placed:'placed',confirmed:'confirmed',packed:'packed',shipped:'shipped',out:'out',delivered:'delivered'}[order.status]||'placed';
+
+  const statusBadgeClass = order.status || 'placed';
   container.innerHTML = `
     <div class="order-track-card">
       <div class="otc-hd">
@@ -1482,77 +2174,94 @@ function renderTrackingCard(order, container) {
           <p>Placed on ${new Date(order.date).toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'})}</p>
         </div>
         <div class="otc-hd-right">
-          <span class="status-badge ${statusBadgeClass}">${TRACKING_STAGES[getOrderStageIndex(order.status)].title}</span>
+          <span class="status-badge ${statusBadgeClass}">${TRACKING_STAGES[stageIdx].title}</span>
           <span style="font-size:0.78rem;color:var(--text-2)">${fmt(order.total)} | ${order.payment.toUpperCase()}</span>
         </div>
       </div>
-      ${order.items.map(item=>`
+      ${order.items.map(item => `
         <div class="otc-product">
-          <img src="${item.img}" class="otc-img" onerror="this.src='https://via.placeholder.com/64x64?text=Product'">
+          <img src="${item.img}" class="otc-img" onerror="this.src='https://placehold.co/64x64/f9f9f9/878787?text=Product'">
           <div class="otc-product-info">
             <h5>${item.name}</h5>
-            <p>${fmt(item.price)} × ${item.qty} = ${fmt(item.price*item.qty)}</p>
+            <p>${fmt(item.price)} × ${item.qty} = ${fmt(item.price * item.qty)}</p>
           </div>
         </div>`).join('')}
-      ${order.status!=='delivered'?`<div class="est-delivery-note">📅 Estimated Delivery: ${order.estimatedDelivery}</div>`:'<div class="est-delivery-note" style="background:var(--green-light);border-color:var(--green);color:var(--green)">✅ Order Delivered Successfully!</div>'}
+      ${order.status !== 'delivered'
+        ? `<div class="est-delivery-note">📅 Estimated Delivery: ${order.estimatedDelivery}</div>`
+        : `<div class="est-delivery-note" style="background:var(--green-light);border-color:var(--green);color:var(--green)">✅ Order Delivered Successfully!</div>`}
       <div class="tracking-timeline">
         <div class="timeline">${stagesHtml}</div>
       </div>
-      ${order.status!=='delivered'?`<div style="padding:16px;border-top:1px solid var(--border)"><button onclick="advanceOrder('${order.id}')" style="padding:8px 16px;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue);border-radius:var(--radius);font-weight:700;cursor:pointer;font-size:0.82rem">🔄 Refresh Status</button></div>`:''}
+      ${order.status !== 'delivered'
+        ? `<div style="padding:16px;border-top:1px solid var(--border)"><button onclick="advanceOrder('${order.id}')" style="padding:8px 16px;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue);border-radius:var(--radius);font-weight:700;cursor:pointer;font-size:0.82rem">🔄 Refresh Status (Simulate)</button></div>`
+        : ''}
     </div>`;
 }
+
 function advanceOrder(orderId) {
-  const order = orders.find(o=>o.id===orderId);
-  if(!order) return;
+  const order = orders.find(o => o.id === orderId);
+  if (!order) return;
   order.status = simulateNextStatus(order);
   save();
-  const result = document.getElementById('trackingResult');
-  renderTrackingCard(order, result);
-  toast(`Order status updated: ${TRACKING_STAGES[getOrderStageIndex(order.status)].title}`);
+  renderTrackingCard(order, document.getElementById('trackingResult'));
+  toast(`Status updated: ${TRACKING_STAGES[getOrderStageIndex(order.status)].title}`);
 }
 
 // ============================================================
 // MY ORDERS
 // ============================================================
 function openMyOrders() {
-  if(!authState.isLoggedIn) { toast('Please login to view orders', 'error'); toggleAuthModal(true); return; }
+  if (!authState.isLoggedIn) {
+    toast('Please login to view your orders', 'error');
+    toggleAuthModal(true);
+    return;
+  }
   document.getElementById('myOrdersOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   renderOrders();
 }
+
 function closeMyOrders() {
   document.getElementById('myOrdersOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
 function renderOrders() {
   const body = document.getElementById('ordersBody');
-  const userOrders = orders; // In a real app, filter by user
-  if(!userOrders.length) {
-    body.innerHTML = `<div class="no-orders"><div class="no-orders-icon">📦</div><h4>No orders yet!</h4><p>Your orders will appear here once you make a purchase.</p></div>`;
+  if (!orders.length) {
+    body.innerHTML = `<div class="no-orders">
+      <div class="no-orders-icon">📦</div>
+      <h4>No orders yet!</h4>
+      <p>Your orders will appear here once you make a purchase.</p>
+    </div>`;
     return;
   }
-  body.innerHTML = userOrders.map(order => {
+  body.innerHTML = orders.map(order => {
     const stageIdx = getOrderStageIndex(order.status);
     const statusBadge = `<span class="status-badge ${order.status}">${TRACKING_STAGES[stageIdx].title}</span>`;
     return `<div class="order-card">
       <div class="order-card-hd">
         <div class="order-meta">Order ID: <strong>${order.id}</strong></div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <span class="order-meta">${new Date(order.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>
+          <span class="order-meta">${new Date(order.date).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'})}</span>
           ${statusBadge}
         </div>
       </div>
-      ${order.items.slice(0,2).map(item=>`
+      ${order.items.slice(0,2).map(item => `
         <div class="order-card-body">
-          <img src="${item.img}" class="order-prod-img" onerror="this.src='https://via.placeholder.com/60x60?text=Product'">
+          <img src="${item.img}" class="order-prod-img" onerror="this.src='https://placehold.co/60x60/f9f9f9/878787?text=Product'">
           <div class="order-prod-info">
             <div class="order-prod-name">${item.name}</div>
-            <div class="order-prod-price">${fmt(item.price)} × ${item.qty}</div>
-            ${order.status==='delivered'?'<div style="color:var(--green);font-size:0.78rem;font-weight:700;margin-top:4px">✅ Delivered</div>':
-              `<div style="color:var(--blue);font-size:0.78rem;font-weight:600;margin-top:4px">📅 Est. ${order.estimatedDelivery}</div>`}
+            <div class="order-prod-price">${fmt(item.price)} × ${item.qty} = ${fmt(item.price*item.qty)}</div>
+            ${order.status === 'delivered'
+              ? '<div style="color:var(--green);font-size:0.78rem;font-weight:700;margin-top:4px">✅ Delivered</div>'
+              : `<div style="color:var(--blue);font-size:0.78rem;font-weight:600;margin-top:4px">📅 Est. ${order.estimatedDelivery}</div>`}
           </div>
         </div>`).join('')}
-      ${order.items.length>2?`<div style="padding:8px 16px;font-size:0.8rem;color:var(--text-2)">+${order.items.length-2} more item(s)</div>`:''}
+      ${order.items.length > 2 ? `<div style="padding:8px 16px;font-size:0.8rem;color:var(--text-2)">+${order.items.length-2} more item(s)</div>` : ''}
+      <div style="padding:10px 16px;font-size:0.85rem;font-weight:700;color:var(--text);background:var(--grey-bg)">
+        Total: ${fmt(order.total)} | ${order.payment.toUpperCase()}
+      </div>
       <div class="order-card-footer">
         <button class="btn-track-order" onclick="closeMyOrders();openTracking('${order.id}')">Track Order 📦</button>
         <button class="btn-reorder" onclick="reorder('${order.id}')">Reorder 🛒</button>
@@ -1560,9 +2269,10 @@ function renderOrders() {
     </div>`;
   }).join('');
 }
+
 function reorder(orderId) {
-  const order = orders.find(o=>o.id===orderId);
-  if(!order) return;
+  const order = orders.find(o => o.id === orderId);
+  if (!order) return;
   order.items.forEach(item => addToCart(item.id, false));
   toast('Items added to cart! 🛒');
   closeMyOrders();
@@ -1570,25 +2280,189 @@ function reorder(orderId) {
 }
 
 // ============================================================
-// SEARCH ENTER KEY
+// KEYBOARD & INPUT EVENTS
 // ============================================================
 document.getElementById('searchInput').addEventListener('keydown', e => {
-  if(e.key === 'Enter') performSearch();
+  if (e.key === 'Enter') performSearch();
 });
+
 document.getElementById('searchInput').addEventListener('input', e => {
-  if(!e.target.value) { state.search=''; renderProducts(); }
+  if (!e.target.value.trim()) {
+    state.search = '';
+    renderProducts();
+    renderActiveFilters();
+  }
+});
+
+// Close overlays on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('detailOverlay').classList.contains('open')) closeDetail();
+    else if (document.getElementById('authOverlay').classList.contains('open')) toggleAuthModal(false);
+    else if (document.getElementById('cartOverlay').classList.contains('open')) toggleCart(false);
+  }
+});
+
+// Only allow digits in mobile input
+document.getElementById('regMobile').addEventListener('input', function() {
+  this.value = this.value.replace(/\D/g, '').slice(0, 10);
 });
 
 // ============================================================
 // INIT
-// ============================================================
+// ==============================================================================================
 function init() {
   updateLoginLabel();
   updateCartBadge();
   renderNavCategories();
   renderSidebarCategories();
   renderProducts();
+  renderActiveFilters();
 }
+
+// ============================================================
+// MOBILE RESPONSIVE JS
+// ============================================================
+
+function performMobileSearch() {
+  const q = document.getElementById('mobileSearchInput').value.trim();
+  document.getElementById('searchInput').value = q;
+  state.search = q;
+  state.category = 'All';
+  renderNavCategories();
+  renderSidebarCategories();
+  renderProducts();
+  renderActiveFilters();
+  scrollToProducts();
+  document.getElementById('mobileSearchInput').blur();
+}
+
+document.getElementById('mobileSearchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') performMobileSearch();
+});
+document.getElementById('mobileSearchInput').addEventListener('input', e => {
+  if (!e.target.value.trim()) {
+    state.search = '';
+    document.getElementById('searchInput').value = '';
+    renderProducts();
+    renderActiveFilters();
+  }
+});
+document.getElementById('searchInput').addEventListener('input', e => {
+  document.getElementById('mobileSearchInput').value = e.target.value;
+});
+
+function mobileNavClick(tab, el) {
+  document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  switch(tab) {
+    case 'home': closeAllViews(); document.getElementById('mainWrap').scrollIntoView({behavior:'smooth'}); break;
+    case 'search': document.getElementById('mobileSearchInput').focus(); window.scrollTo({top:0,behavior:'smooth'}); break;
+    case 'cart': toggleCart(true); break;
+    case 'orders': openMyOrders(); break;
+    case 'account': toggleAuthModal(true); break;
+  }
+  if (tab !== 'home') {
+    setTimeout(() => {
+      document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('mobNavHome').classList.add('active');
+    }, 400);
+  }
+}
+
+const _origUpdateCartBadge = updateCartBadge;
+updateCartBadge = function() {
+  const count = cart.reduce((s,i) => s + i.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  if (badge) badge.textContent = count;
+  const detBadge = document.getElementById('detailCartCount');
+  if (detBadge) detBadge.textContent = 'Cart (' + count + ')';
+  const mob = document.getElementById('mobCartBadge');
+  if (mob) { mob.textContent = count; mob.style.display = count > 0 ? '' : 'none'; }
+};
+
+const _origUpdateLoginLabel = updateLoginLabel;
+updateLoginLabel = function() {
+  const label = authState.isLoggedIn ? authState.user.name.split(' ')[0] : 'Login';
+  const el = document.getElementById('loginLabel');
+  if (el) el.textContent = label;
+  const mob = document.getElementById('mobLoginLabel');
+  if (mob) mob.textContent = label;
+};
+
+function openFilterDrawer() {
+  renderDrawerCats();
+  syncDrawerState();
+  document.getElementById('filterDrawerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeFilterDrawer() {
+  document.getElementById('filterDrawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeFilterDrawerOnOutside(e) {
+  if (e.target === document.getElementById('filterDrawerOverlay')) closeFilterDrawer();
+}
+function renderDrawerCats() {
+  document.getElementById('drawerCats').innerHTML = CATEGORIES.map(c =>
+    '<div class="filter-drawer-cat ' + (state.category===c.name?'active':'') + '" onclick="drawerSetCat(\'' + c.name + '\',this)"><span class="dc-icon">' + c.icon + '</span>' + c.name + '</div>'
+  ).join('');
+}
+function drawerSetCat(cat, el) {
+  document.querySelectorAll('.filter-drawer-cat').forEach(d => d.classList.remove('active'));
+  el.classList.add('active');
+  state.category = cat;
+}
+function drawerSort(val, el) {
+  document.querySelectorAll('.drawer-sort-btn[data-val]').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.sortBy = val;
+  document.getElementById('sortSelect').value = val;
+}
+function drawerRating(r, el) {
+  document.querySelectorAll('.drawer-sort-btn[data-rating]').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  state.minRating = Number(r);
+}
+function syncDrawerState() {
+  document.querySelectorAll('.drawer-sort-btn[data-val]').forEach(b => b.classList.toggle('active', b.dataset.val===state.sortBy));
+  document.querySelectorAll('.drawer-sort-btn[data-rating]').forEach(b => b.classList.toggle('active', Number(b.dataset.rating)===state.minRating));
+  document.getElementById('drawerPriceMin').value = state.minPrice > 0 ? state.minPrice : '';
+  document.getElementById('drawerPriceMax').value = state.maxPrice !== Infinity ? state.maxPrice : '';
+}
+function applyDrawerFilters() {
+  const min = parseFloat(document.getElementById('drawerPriceMin').value) || 0;
+  const max = parseFloat(document.getElementById('drawerPriceMax').value);
+  state.minPrice = min;
+  state.maxPrice = (!isNaN(max) && max > 0) ? max : Infinity;
+  document.getElementById('priceMin').value = min > 0 ? min : '';
+  document.getElementById('priceMax').value = state.maxPrice !== Infinity ? state.maxPrice : '';
+  renderNavCategories();
+  renderSidebarCategories();
+  renderProducts();
+  renderActiveFilters();
+  closeFilterDrawer();
+  scrollToProducts();
+}
+
+(function(){
+  const panel = document.querySelector('.cart-panel');
+  if (!panel) return;
+  let startX = 0;
+  panel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  panel.addEventListener('touchend', e => { if (e.changedTouches[0].clientX - startX > 80) toggleCart(false); }, {passive:true});
+})();
+
+(function(){
+  const fab = document.getElementById('fabFilter');
+  const footer = document.querySelector('footer');
+  if (!fab || !footer || !window.IntersectionObserver) return;
+  new IntersectionObserver(entries => {
+    fab.style.opacity = entries[0].isIntersecting ? '0' : '1';
+    fab.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
+  }, {threshold:0.1}).observe(footer);
+})();
+
 init();
 </script>
 </body>
