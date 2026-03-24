@@ -634,24 +634,248 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
 @keyframes smsOut{to{transform:translateX(-50%) translateY(20px);opacity:0}}
 
 /* RESPONSIVE */
-@media(max-width:600px){
+/* ================================================================
+   FULLY RESPONSIVE — MOBILE · TABLET · LAPTOP · DESKTOP
+   xs  < 480px   small phones
+   sm  < 640px   phones
+   md  < 768px   large phones / small tablets
+   lg  < 1024px  tablets / small laptops
+   xl  ≥ 1024px  laptops & desktops
+   ================================================================ */
+
+/* ── Mobile bottom navigation bar ── */
+.mob-nav-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1500;background:#fff;border-top:1px solid var(--border);box-shadow:0 -2px 12px rgba(0,0,0,.1)}
+.mob-nav-inner{display:flex;justify-content:space-around;padding:6px 0 max(6px,env(safe-area-inset-bottom))}
+.mob-nav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;background:none;border:none;cursor:pointer;color:var(--text-2);font-size:0.6rem;font-weight:700;position:relative;min-width:52px;transition:.15s;font-family:var(--font-body)}
+.mob-nav-btn.active,.mob-nav-btn:active{color:var(--blue)}
+.mob-nav-icon{font-size:1.25rem;line-height:1}
+.mob-cart-badge{position:absolute;top:2px;right:8px;background:var(--yellow);color:#fff;font-size:0.55rem;font-weight:800;padding:1px 4px;border-radius:10px;min-width:16px;text-align:center}
+.mob-wish-badge{position:absolute;top:2px;right:8px;background:var(--red);color:#fff;font-size:0.55rem;font-weight:800;padding:1px 4px;border-radius:10px;min-width:16px;text-align:center;display:none}
+
+/* ── Mobile sticky search bar ── */
+.mob-search-bar{display:none;position:sticky;top:var(--header-h);z-index:900;background:var(--blue);padding:8px 12px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.mob-search-inner{display:flex;background:#fff;border-radius:var(--radius);overflow:hidden}
+.mob-search-inner input{flex:1;border:none;outline:none;padding:10px 12px;font-size:0.88rem;color:var(--text);font-family:var(--font-body)}
+.mob-search-inner button{background:var(--yellow);border:none;padding:10px 14px;color:#fff;font-size:1rem;cursor:pointer}
+
+/* ── FAB filter button (mobile) ── */
+.fab-filter{display:none;position:fixed;bottom:74px;right:16px;z-index:1400;background:var(--blue);color:#fff;border:none;border-radius:50px;padding:11px 16px;font-size:0.8rem;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(40,116,240,.4);align-items:center;gap:6px;font-family:var(--font-body);transition:.2s}
+.fab-filter:active{transform:scale(.96)}
+
+/* ── Mobile filter drawer ── */
+.mob-filter-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.5)}
+.mob-filter-overlay.open{display:block}
+.mob-filter-drawer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:18px 18px 0 0;max-height:88vh;overflow-y:auto;z-index:2001;transform:translateY(100%);transition:.3s cubic-bezier(.4,0,.2,1);padding-bottom:max(16px,env(safe-area-inset-bottom))}
+.mob-filter-overlay.open .mob-filter-drawer{transform:translateY(0)}
+.mob-filter-hd{padding:16px 20px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:1}
+.mob-filter-hd h3{font-family:var(--font);font-size:1rem;font-weight:800;color:var(--text)}
+.mob-filter-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-2);line-height:1;padding:4px}
+.mob-filter-body{padding:16px 20px}
+.mob-cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.mob-cat-btn{padding:10px 6px;border:1.5px solid var(--border);border-radius:var(--radius-lg);text-align:center;cursor:pointer;font-size:0.72rem;font-weight:700;color:var(--text-3);transition:.15s;background:#fff;font-family:var(--font-body)}
+.mob-cat-btn.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.mob-cat-icon{font-size:1.3rem;display:block;margin-bottom:2px}
+.mob-section{padding:12px 0;border-top:1px solid var(--border)}
+.mob-section-title{font-weight:700;font-size:0.85rem;margin-bottom:10px;color:var(--text)}
+.mob-pills{display:flex;flex-wrap:wrap;gap:8px}
+.mob-pill{padding:7px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;background:#fff;color:var(--text-3);transition:.15s;font-family:var(--font-body)}
+.mob-pill.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.mob-apply-btn{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-weight:800;font-size:0.92rem;margin-top:16px;cursor:pointer;font-family:var(--font-body)}
+.mob-clear-btn{width:100%;padding:11px;background:#fff;color:var(--red);border:1.5px solid var(--red);border-radius:var(--radius);font-weight:700;font-size:0.88rem;margin-top:8px;cursor:pointer;font-family:var(--font-body)}
+
+/* ── Large Desktop (≥1280px) ── */
+@media(min-width:1280px){
+  .main-wrap{grid-template-columns:240px 1fr}
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .hero h1{font-size:2.6rem}
+}
+
+/* ── Tablet Landscape (768–1023px) ── */
+@media(max-width:1023px) and (min-width:768px){
+  .main-wrap{grid-template-columns:200px 1fr;gap:12px;padding:12px}
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+  .hero h1{font-size:1.9rem}
+  .hero-stats{gap:20px}
+  .stat-num{font-size:1.4rem}
+  .detail-body{grid-template-columns:1fr 1fr;gap:20px;padding:16px}
+  .detail-main-img{height:320px}
+  .checkout-body{grid-template-columns:1fr 320px;gap:14px}
+  .h-btn{min-width:60px;padding:6px 10px;font-size:0.72rem}
+  .cart-panel{width:380px}
+  .pgw-modal{max-width:400px}
+  .os-body{padding:16px 12px}
+}
+
+/* ── Mobile + Tablet Portrait (≤767px) ── */
+@media(max-width:767px){
+  :root{--header-h:52px}
+  body{padding-bottom:68px}
+
+  /* Header */
+  .header-top{padding:0 10px;gap:6px}
+  .logo-sub{display:none}
+  .logo-name{font-size:1.1rem}
+  .header-search{display:none}
+  .header-actions{gap:0}
   .h-btn span:not(.icon,.cart-count,.wishlist-badge){display:none}
-  .h-btn{min-width:auto;padding:8px}
-  .hero h1{font-size:1.5rem}
-  .detail-name{font-size:1.3rem}
+  .h-btn{min-width:auto;padding:6px 8px}
+  .h-btn .icon{font-size:1.15rem}
+
+  /* Show mobile search bar + bottom nav + FAB */
+  .mob-search-bar{display:block}
+  .mob-nav-bar{display:block}
+  .fab-filter{display:flex}
+  .nav-bar{display:none}
+
+  /* Main layout */
+  .main-wrap{grid-template-columns:1fr;padding:10px;gap:10px}
+  .sidebar{display:none}
+
+  /* Hero */
+  .hero{padding:24px 14px}
+  .hero h1{font-size:1.5rem;margin-bottom:6px}
+  .hero p{font-size:0.88rem;margin-bottom:14px}
+  .hero-btns{gap:8px}
+  .btn-hero{padding:10px 20px;font-size:0.82rem}
+  .hero-stats{gap:14px;margin-top:16px}
+  .stat-num{font-size:1.25rem}
+  .stat-label{font-size:0.68rem}
+
+  /* Controls bar */
+  .controls-bar{padding:10px 12px}
+  .results-info{font-size:0.8rem}
+  .sort-label{display:none}
+  .sort-select{font-size:0.78rem;padding:6px 22px 6px 8px}
+
+  /* Product grid */
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .card-img-wrap{height:148px}
+  .card-img-wrap img{height:130px}
+  .card-body{padding:8px}
+  .card-name{font-size:0.8rem}
+  .card-price{font-size:0.9rem}
+  .card-desc{display:none}
+  .card-footer{padding:8px}
+  .btn-cart,.btn-view{font-size:0.72rem;padding:7px 2px}
+
+  /* Product detail overlay */
+  .detail-overlay{transform:translateY(100%)}
+  .detail-overlay.open{transform:translateY(0)}
+  .detail-hd{padding:12px 14px}
+  .detail-body{grid-template-columns:1fr;gap:12px;padding:14px 12px}
+  .detail-img-section{position:static}
+  .detail-main-img{height:260px}
+  .detail-name{font-size:1.2rem}
   .detail-price{font-size:1.5rem}
-  .checkout-body{grid-template-columns:1fr}
+  .detail-actions{position:fixed;bottom:0;left:0;right:0;padding:10px 14px;z-index:50;background:#fff;box-shadow:0 -2px 12px rgba(0,0,0,.1);gap:10px;border-top:1px solid var(--border)}
+  .btn-detail-cart,.btn-detail-buy{padding:11px 8px;font-size:0.85rem}
+  .specs-grid{grid-template-columns:1fr 1fr}
+  .related-section{grid-column:1/-1}
+  .related-card{width:140px}
+  .related-img{height:100px}
+  .detail-thumbs-grid{grid-template-columns:repeat(4,1fr);gap:6px}
+
+  /* Cart */
+  .cart-panel{width:100vw}
+  .cart-item{padding:10px}
+  .cart-img{width:60px;height:60px}
+
+  /* Checkout */
+  .checkout-body{grid-template-columns:1fr;padding:0 10px;margin:14px auto}
+  .checkout-hd{padding:12px 14px}
+  .checkout-hd h2{font-size:1rem}
   .track-inputs{flex-direction:column}
   .tracking-timeline{padding:16px 8px}
-  .detail-thumbs-grid{grid-template-columns:repeat(4,1fr);gap:6px}
-  .detail-main-img{height:250px}
-  .wishlist-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .addr-row{flex-direction:column}
+  .btn-pay-now{font-size:0.88rem;padding:12px}
+
+  /* Auth modal — bottom sheet */
+  .overlay{align-items:flex-end;padding:0}
+  .modal{border-radius:18px 18px 0 0;margin:0;max-height:92vh;max-width:100%}
+  .overlay.open .modal{transform:scale(1) translateY(0)}
+
+  /* Payment gateway */
+  .pgw-overlay{align-items:flex-end;padding:0}
+  .pgw-modal{border-radius:18px 18px 0 0;max-width:100%}
+
+  /* Order summary */
+  .os-body{padding:16px 12px}
+  .os-actions{flex-direction:column}
+  .os-actions button{min-width:unset}
+
+  /* Wishlist */
+  .wishlist-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .wishlist-card-img-wrap{height:140px}
+
+  /* Toasts */
+  .toast-wrap{bottom:76px;right:10px;left:10px}
+  .toast{min-width:unset;width:100%;justify-content:center}
+
+  /* Success overlay */
+  .success-actions{flex-direction:column;align-items:center}
+  .success-title{font-size:1.5rem}
+
+  /* Orders & tracking */
+  .orders-body,.tracking-body{padding:0 10px}
+  .otc-hd{flex-direction:column;align-items:flex-start;gap:8px}
+
+  /* Footer */
+  .footer-top{grid-template-columns:1fr;padding:24px 16px;gap:20px}
+  .footer-bottom-inner{flex-direction:column;gap:8px;text-align:center}
+
+  /* SMS toast */
+  .sms-toast{white-space:normal;text-align:center;font-size:0.78rem;bottom:76px}
 }
-@media(max-width:400px){
-  .logo-name{font-size:1.1rem}
-  .header-search{max-width:140px}
-  .header-search input{padding:8px 10px;font-size:0.82rem}
+
+/* ── Small Phones (≤479px) ── */
+@media(max-width:479px){
+  .hero h1{font-size:1.3rem}
+  .btn-hero{padding:9px 16px;font-size:0.78rem}
+  .stat-num{font-size:1.1rem}
+  .hero-stats{gap:10px}
+  .product-grid{gap:8px}
+  .card-img-wrap{height:128px}
+  .card-img-wrap img{height:110px}
+  .card-price{font-size:0.85rem}
+  .card-name{font-size:0.76rem}
+  .btn-cart,.btn-view{font-size:0.68rem;padding:6px 1px}
+  .detail-main-img{height:220px}
+  .detail-name{font-size:1.05rem}
+  .specs-grid{grid-template-columns:1fr}
+  .logo-name{font-size:1rem}
+  .pgw-body,.pgw-modal .pgw-header{padding:14px}
+  .os-body{padding:12px 10px}
+  .os-product-row{flex-direction:column;align-items:flex-start;gap:10px}
+  .os-product-img{width:60px;height:60px}
+}
+
+/* ── Very Small (≤359px) ── */
+@media(max-width:359px){
+  .header-top{padding:0 6px;gap:4px}
+  .logo-name{font-size:0.9rem}
+  .mob-search-inner input{font-size:0.82rem;padding:8px}
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .card-footer{flex-direction:column;gap:4px}
+  .mob-cat-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .mob-cat-btn{font-size:0.66rem;padding:8px 4px}
+}
+
+/* ── Touch device improvements ── */
+@media(hover:none) and (pointer:coarse){
+  .card-wishlist{opacity:1}
+  .product-card:hover{transform:none;box-shadow:var(--shadow)}
+  .product-card:active{transform:scale(.98)}
+  .btn-cart:active,.btn-view:active,.btn-primary:active,.pgw-pay-btn:active{transform:scale(.97)}
+  .h-btn:active{background:rgba(255,255,255,.2)}
+  .mob-cat-btn:active{transform:scale(.96)}
+  .qty-btn{padding:8px 14px;font-size:1.1rem}
+}
+
+/* ── Print ── */
+@media print{
+  #header,.mob-nav-bar,.fab-filter,.mob-search-bar,.hero,.sidebar,footer{display:none!important}
+  .main-wrap{grid-template-columns:1fr;padding:0}
+  .product-grid{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
@@ -694,6 +918,14 @@ footer{background:#212121;color:#e0e0e0;margin-top:40px}
     <div class="nav-inner" id="navCategories"></div>
   </nav>
 </header>
+
+<!-- MOBILE SEARCH BAR -->
+<div class="mob-search-bar" id="mobSearchBar">
+  <div class="mob-search-inner">
+    <input type="text" id="mobSearchInput" placeholder="Search products, brands…" autocomplete="off">
+    <button onclick="doMobSearch()">🔍</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -1535,7 +1767,10 @@ function doLogin(e) {
   toast(`Welcome back, ${user.name}! 👋`);
 }
 function updateLoginLabel() {
-  document.getElementById('loginLabel').textContent = authState.isLoggedIn ? authState.user.name.split(' ')[0] : 'Login';
+  const label = authState.isLoggedIn ? authState.user.name.split(' ')[0] : 'Login';
+  document.getElementById('loginLabel').textContent = label;
+  const mob = document.getElementById('mobAccLabel');
+  if (mob) mob.textContent = authState.isLoggedIn ? authState.user.name.split(' ')[0] : 'Login';
 }
 function toggleAuthModal(show) {
   if(show&&authState.isLoggedIn){
@@ -2449,7 +2684,225 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// ================================================================
+// MOBILE RESPONSIVE — bottom nav, search, filter drawer, FAB
+// ================================================================
+
+// ── Mobile search sync ──
+document.getElementById('mobSearchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doMobSearch();
+});
+document.getElementById('mobSearchInput').addEventListener('input', e => {
+  if (!e.target.value.trim()) {
+    state.search = ''; document.getElementById('searchInput').value = '';
+    renderProducts(); renderActiveFilters();
+  }
+});
+document.getElementById('searchInput').addEventListener('input', e => {
+  document.getElementById('mobSearchInput').value = e.target.value;
+});
+
+function doMobSearch() {
+  const q = document.getElementById('mobSearchInput').value.trim();
+  state.search = q; state.category = 'All';
+  document.getElementById('searchInput').value = q;
+  renderNavCategories(); renderSidebarCategories();
+  renderProducts(); renderActiveFilters();
+  scrollToProducts();
+  document.getElementById('mobSearchInput').blur();
+}
+
+// ── Mobile bottom nav click ──
+function mobNavClick(tab, el) {
+  document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  switch (tab) {
+    case 'home': closeAllViews(); document.getElementById('mainWrap').scrollIntoView({behavior:'smooth'}); break;
+    case 'search': window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>document.getElementById('mobSearchInput').focus(),300); break;
+    case 'wishlist': openWishlist(); break;
+    case 'cart': toggleCart(true); break;
+    case 'account': toggleAuthModal(true); break;
+  }
+  if (tab !== 'home') {
+    setTimeout(()=>{
+      document.querySelectorAll('.mob-nav-btn').forEach(b=>b.classList.remove('active'));
+      document.getElementById('mobNavHome').classList.add('active');
+    }, 500);
+  }
+}
+
+// ── Update mobile badges ──
+const _origUpdateCartBadge = updateCartBadge;
+updateCartBadge = function() {
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  const desktop = document.getElementById('cartBadge');
+  if (desktop) desktop.textContent = count;
+  const mob = document.getElementById('mobCartBadge');
+  if (mob) { mob.textContent = count; mob.style.display = count > 0 ? '' : 'none'; }
+  const det = document.getElementById('detailCartCount');
+  if (det) det.textContent = `Cart (${count})`;
+};
+
+const _origUpdateWishlistBadge = updateWishlistBadge;
+updateWishlistBadge = function() {
+  const count = wishlist.length;
+  const desktop = document.getElementById('wishlistBadge');
+  if (desktop) { desktop.textContent = count; desktop.style.display = count > 0 ? '' : 'none'; }
+  const mob = document.getElementById('mobWishBadge');
+  if (mob) { mob.textContent = count; mob.style.display = count > 0 ? '' : 'none'; }
+};
+
+// ── Mobile filter drawer ──
+let _drawerState = { sort:'default', rating:0, minPrice:0, maxPrice:Infinity, category:'All' };
+
+function openMobFilter() {
+  _drawerState = {
+    sort: state.sortBy, rating: state.minRating,
+    minPrice: state.minPrice, maxPrice: state.maxPrice, category: state.category
+  };
+  renderMobCats();
+  syncMobDrawer();
+  document.getElementById('mobFilterOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobFilter() {
+  document.getElementById('mobFilterOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderMobCats() {
+  document.getElementById('mobCatGrid').innerHTML = CATEGORIES.map(c =>
+    `<div class="mob-cat-btn ${_drawerState.category===c.name?'active':''}" onclick="mobSetCat('${c.name}',this)">
+      <span class="mob-cat-icon">${c.icon}</span>${c.name}
+    </div>`
+  ).join('');
+}
+function mobSetCat(cat, el) {
+  document.querySelectorAll('.mob-cat-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  _drawerState.category = cat;
+}
+function mobSetSort(val, el) {
+  document.querySelectorAll('[data-mobsort]').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active'); _drawerState.sort = val;
+}
+function mobSetRating(r, el) {
+  document.querySelectorAll('[data-mobrating]').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active'); _drawerState.rating = Number(r);
+}
+function syncMobDrawer() {
+  document.querySelectorAll('[data-mobsort]').forEach(b=>b.classList.toggle('active',b.dataset.mobsort===_drawerState.sort));
+  document.querySelectorAll('[data-mobrating]').forEach(b=>b.classList.toggle('active',Number(b.dataset.mobrating)===_drawerState.rating));
+  document.getElementById('mobPriceMin').value = _drawerState.minPrice > 0 ? _drawerState.minPrice : '';
+  document.getElementById('mobPriceMax').value = _drawerState.maxPrice !== Infinity ? _drawerState.maxPrice : '';
+}
+function applyMobFilter() {
+  const mn = parseFloat(document.getElementById('mobPriceMin').value)||0;
+  const mx = parseFloat(document.getElementById('mobPriceMax').value);
+  state.category = _drawerState.category;
+  state.sortBy = _drawerState.sort;
+  state.minRating = _drawerState.rating;
+  state.minPrice = mn;
+  state.maxPrice = (!isNaN(mx)&&mx>0) ? mx : Infinity;
+  document.getElementById('sortSelect').value = state.sortBy;
+  document.getElementById('priceMin').value = mn > 0 ? mn : '';
+  document.getElementById('priceMax').value = state.maxPrice !== Infinity ? state.maxPrice : '';
+  document.querySelectorAll('input[name="rating"]').forEach(r=>r.checked=Number(r.value)===state.minRating);
+  renderNavCategories(); renderSidebarCategories();
+  renderProducts(); renderActiveFilters();
+  closeMobFilter(); scrollToProducts();
+}
+
+// Swipe to close cart panel
+(function(){
+  const panel = document.querySelector('.cart-panel');
+  if (!panel) return;
+  let sx = 0;
+  panel.addEventListener('touchstart', e=>{sx=e.touches[0].clientX;},{passive:true});
+  panel.addEventListener('touchend', e=>{if(e.changedTouches[0].clientX-sx>80) toggleCart(false);},{passive:true});
+})();
+
+// FAB visibility: hide near footer
+(function(){
+  const fab = document.getElementById('fabFilterBtn');
+  const footer = document.querySelector('footer');
+  if (!fab||!footer||!window.IntersectionObserver) return;
+  new IntersectionObserver(entries=>{
+    fab.style.opacity = entries[0].isIntersecting?'0':'1';
+    fab.style.pointerEvents = entries[0].isIntersecting?'none':'auto';
+  },{threshold:0.1}).observe(footer);
+})();
+
 init();
 </script>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mob-nav-bar">
+  <div class="mob-nav-inner">
+    <button class="mob-nav-btn active" id="mobNavHome" onclick="mobNavClick('home',this)">
+      <span class="mob-nav-icon">🏪</span>Home
+    </button>
+    <button class="mob-nav-btn" onclick="mobNavClick('search',this)">
+      <span class="mob-nav-icon">🔍</span>Search
+    </button>
+    <button class="mob-nav-btn" onclick="mobNavClick('wishlist',this)">
+      <span class="mob-nav-icon">❤️</span>Saved
+      <span class="mob-wish-badge" id="mobWishBadge">0</span>
+    </button>
+    <button class="mob-nav-btn" onclick="mobNavClick('cart',this)">
+      <span class="mob-nav-icon">🛒</span>Cart
+      <span class="mob-cart-badge" id="mobCartBadge" style="display:none">0</span>
+    </button>
+    <button class="mob-nav-btn" onclick="mobNavClick('account',this)">
+      <span class="mob-nav-icon">👤</span><span id="mobAccLabel">Login</span>
+    </button>
+  </div>
+</nav>
+
+<!-- FAB FILTER BUTTON -->
+<button class="fab-filter" id="fabFilterBtn" onclick="openMobFilter()">⚙️ Filter</button>
+
+<!-- MOBILE FILTER DRAWER -->
+<div class="mob-filter-overlay" id="mobFilterOverlay" onclick="if(event.target===this)closeMobFilter()">
+  <div class="mob-filter-drawer">
+    <div class="mob-filter-hd">
+      <h3>⚙️ Filter & Sort</h3>
+      <button class="mob-filter-close" onclick="closeMobFilter()">✕</button>
+    </div>
+    <div class="mob-filter-body">
+      <div style="margin-bottom:4px">
+        <div class="mob-section-title">Category</div>
+        <div class="mob-cat-grid" id="mobCatGrid"></div>
+      </div>
+      <div class="mob-section">
+        <div class="mob-section-title">Sort By</div>
+        <div class="mob-pills">
+          <button class="mob-pill active" data-mobsort="default" onclick="mobSetSort('default',this)">Relevance</button>
+          <button class="mob-pill" data-mobsort="priceLow" onclick="mobSetSort('priceLow',this)">Price ↑</button>
+          <button class="mob-pill" data-mobsort="priceHigh" onclick="mobSetSort('priceHigh',this)">Price ↓</button>
+          <button class="mob-pill" data-mobsort="rating" onclick="mobSetSort('rating',this)">Top Rated</button>
+          <button class="mob-pill" data-mobsort="newest" onclick="mobSetSort('newest',this)">Newest</button>
+        </div>
+      </div>
+      <div class="mob-section">
+        <div class="mob-section-title">Price Range (₹)</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input type="number" class="form-input" id="mobPriceMin" placeholder="Min" style="flex:1">
+          <input type="number" class="form-input" id="mobPriceMax" placeholder="Max" style="flex:1">
+        </div>
+      </div>
+      <div class="mob-section">
+        <div class="mob-section-title">Customer Rating</div>
+        <div class="mob-pills">
+          <button class="mob-pill active" data-mobrating="0" onclick="mobSetRating(0,this)">All</button>
+          <button class="mob-pill" data-mobrating="3" onclick="mobSetRating(3,this)">3★+</button>
+          <button class="mob-pill" data-mobrating="4" onclick="mobSetRating(4,this)">4★+</button>
+        </div>
+      </div>
+      <button class="mob-apply-btn" onclick="applyMobFilter()">Apply Filters</button>
+      <button class="mob-clear-btn" onclick="clearAllFilters();closeMobFilter()">✕ Clear All Filters</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
